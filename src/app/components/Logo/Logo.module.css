@@ -1,0 +1,32 @@
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo_text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.logo_icon {
+  fill: #f6b83d;
+  display: block;
+}
+
+@media screen and (min-width: 768px) {
+  .logo_text {
+    font-size: 100px;
+  }
+
+  .logo_icon {
+    width: 82px;
+    height: 82px;
+  }
+}
