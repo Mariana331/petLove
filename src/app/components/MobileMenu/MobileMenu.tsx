@@ -16,7 +16,7 @@ function MobileMenu({ isOpenMobileMenu, onClose }: MobileMenuProps) {
           type="button"
           onClick={onClose}
         >
-          <svg width={32} height={32} className={css.mobile_close_icon}>
+          <svg width={16} height={16} className={css.mobile_close_icon}>
             <use href="/sprite.svg#icon-cross"></use>
           </svg>
         </button>
@@ -28,16 +28,12 @@ function MobileMenu({ isOpenMobileMenu, onClose }: MobileMenuProps) {
               </Link>
             </li>
             <li className={css.mobile_item}>
-              <Link className={css.mobile_link} to="/findPet" onClick={onClose}>
+              <Link className={css.mobile_link} to="/notices" onClick={onClose}>
                 Find pet
               </Link>
             </li>
             <li className={css.mobile_item}>
-              <Link
-                className={css.mobile_link}
-                to="/ourFriend"
-                onClick={onClose}
-              >
+              <Link className={css.mobile_link} to="/friends" onClick={onClose}>
                 Our friends
               </Link>
             </li>

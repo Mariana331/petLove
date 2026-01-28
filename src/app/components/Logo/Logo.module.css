@@ -18,9 +18,8 @@
 .logo_icon_home {
   fill: #fff;
   display: block;
-
-  width: 17px;
-  height: 17px;
+  width: 14px;
+  height: 12px;
 }
 
 .logo_text_other {
@@ -38,8 +37,8 @@
 .logo_icon_other {
   fill: #fff;
   display: block;
-  width: 17px;
-  height: 17px;
+  width: 14px;
+  height: 12px;
 }
 
 @media screen and (min-width: 768px) {
@@ -48,13 +47,13 @@
   }
 
   .logo_icon_home {
-    width: 23px;
-    height: 23px;
+    width: 19px;
+    height: 17px;
   }
 
   .logo_icon_other {
-    width: 23px;
-    height: 23px;
+    width: 19px;
+    height: 17px;
   }
 
   .logo_text_other {

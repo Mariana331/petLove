@@ -1,5 +1,5 @@
 .header {
-  background-color: #f6b83d;
+  background-color: transparent;
   position: absolute;
   z-index: 2;
   box-sizing: border-box;
@@ -7,7 +7,7 @@
 }
 
 .header_wrapper {
-  padding: 0 20px;
+  padding-top: 17px;
   display: flex;
   justify-content: space-between;
 }
@@ -148,7 +148,7 @@
 
 @media screen and (min-width: 768px) {
   .header_wrapper {
-    padding: 0 32px;
+    padding-top: 16px;
   }
 
   .header_login,
@@ -178,7 +178,7 @@
 
 @media screen and (min-width: 1280px) {
   .header_wrapper {
-    padding: 0 64px;
+    padding: 17px 64px 0 64px;
   }
 
   .header_nav {

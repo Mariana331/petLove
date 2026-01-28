@@ -14,7 +14,7 @@ function Logo() {
         onClick={() => setIsLoading(true)}
       >
         petl
-        <svg className={css.logo_icon_home} width={17} height={17}>
+        <svg className={css.logo_icon_home} width={14} height={12}>
           <use href="/sprite.svg#icon-heart" />
         </svg>
         ve
