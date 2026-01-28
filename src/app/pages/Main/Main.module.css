@@ -16,6 +16,28 @@
   }
 }
 
+.layout_logo {
+  display: flex;
+  align-items: center;
+}
+
+.layout_logo_text {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  font-weight: 700;
+  font-size: 50px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.layout_logo_icon {
+  fill: #f6b83d;
+  display: block;
+}
+
 @media screen and (min-width: 768px) {
   .layout_wrapper {
     padding: 462px 0;
@@ -29,6 +51,15 @@
     .layout_wrapper {
       background-image: url(/main/main.tab2.jpg);
     }
+  }
+
+  .layout_logo_text {
+    font-size: 100px;
+  }
+
+  .layout_logo_icon {
+    width: 82px;
+    height: 82px;
   }
 }
 

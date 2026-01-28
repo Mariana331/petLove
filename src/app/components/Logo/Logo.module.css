@@ -3,30 +3,61 @@
   align-items: center;
 }
 
-.logo_text {
+.logo_text_home {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-direction: row;
   font-weight: 700;
-  font-size: 50px;
+  font-size: 20px;
   line-height: 100%;
   letter-spacing: -0.04em;
   color: #fff;
 }
 
-.logo_icon {
-  fill: #f6b83d;
+.logo_icon_home {
+  fill: #fff;
   display: block;
+
+  width: 17px;
+  height: 17px;
+}
+
+.logo_text_other {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: row;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.04em;
+  color: #fff;
+}
+
+.logo_icon_other {
+  fill: #fff;
+  display: block;
+  width: 17px;
+  height: 17px;
 }
 
 @media screen and (min-width: 768px) {
-  .logo_text {
-    font-size: 100px;
+  .logo_text_home {
+    font-size: 28px;
   }
 
-  .logo_icon {
-    width: 82px;
-    height: 82px;
+  .logo_icon_home {
+    width: 23px;
+    height: 23px;
+  }
+
+  .logo_icon_other {
+    width: 23px;
+    height: 23px;
+  }
+
+  .logo_text_other {
+    font-size: 28px;
   }
 }
