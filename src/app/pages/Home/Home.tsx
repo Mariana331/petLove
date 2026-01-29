@@ -3,8 +3,9 @@ import css from "./Home.module.css";
 function Home() {
   return (
     <div className={css.home}>
-      <div className={css.home_top}>
-        <div className="container">
+      <div className="container">
+        <div className={css.home_top}>
+          <div className="container"></div>
           <div className={css.home_box_title}>
             <h1 className={css.home_title}>
               Take good <span className={css.home_span}>care</span> of your
@@ -18,8 +19,8 @@ function Home() {
             </p>
           </div>
         </div>
+        <div className={css.home_bottom}></div>
       </div>
-      <div className={css.home_bottom}></div>
     </div>
   );
 }

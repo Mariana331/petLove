@@ -4,6 +4,13 @@
   z-index: 2;
   box-sizing: border-box;
   width: 100%;
+  margin: 0 auto;
+}
+
+.header_wrapper_home {
+  padding: 17px 20px 0 20px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .header_wrapper {
@@ -142,11 +149,15 @@
   stroke: #fff;
 }
 
-.header_icon_btn_ {
+.header_icon_btn {
   stroke: #262626;
 }
 
 @media screen and (min-width: 768px) {
+  .header_wrapper_home {
+    padding: 16px 32px 0 32px;
+  }
+
   .header_wrapper {
     padding-top: 16px;
   }
@@ -177,8 +188,12 @@
 }
 
 @media screen and (min-width: 1280px) {
-  .header_wrapper {
+  .header_wrapper_home {
     padding: 17px 64px 0 64px;
+  }
+
+  .header_wrapper {
+    padding-top: 17px;
   }
 
   .header_nav {

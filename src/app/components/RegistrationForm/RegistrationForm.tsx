@@ -1,0 +1,81 @@
+import css from "./RegistrationForm.module.css";
+import { useForm } from "react-hook-form";
+import * as Yup from "yup";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { Link } from "react-router-dom";
+
+interface RegistrationFormData {
+  name: string;
+  email: string;
+  password: string;
+}
+
+const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
+
+export const Schema = Yup.object().shape({
+  name: Yup.string().required("Name is required"),
+
+  email: Yup.string()
+    .matches(emailRegex, "Invalid email format")
+    .required("Email is required"),
+
+  password: Yup.string()
+    .min(7, "Minimum 7 characters")
+    .required("Password is required"),
+});
+export function RegistrationForm() {
+  const { register } = useForm<RegistrationFormData>({
+    resolver: yupResolver(Schema),
+  });
+  return (
+    <div className={css.form_box}>
+      <div className={css.form_info}>
+        <h2 className={css.form_title}>Registration</h2>
+        <p className={css.form_info}>
+          Thank you for your interest in our platform.
+        </p>
+      </div>
+      <form className={css.form}>
+        <div className={css.form_wrapper}>
+          <input
+            {...register("name")}
+            className={css.form_input}
+            type="text"
+            placeholder="Name"
+          />
+          <input
+            {...register("email")}
+            className={css.form_input}
+            type="email"
+            placeholder="Email"
+          />
+          <input
+            {...register("password")}
+            className={css.form_input}
+            type="text"
+            placeholder="Password"
+          />
+          <input
+            {...register("password")}
+            className={css.form_input}
+            type="text"
+            placeholder="Confirm password"
+          />
+        </div>
+        <div className={css.form_box_btn}>
+          <button className={css.form_btn} type="submit">
+            Registration
+          </button>
+          <p className={css.form_link}>
+            Already have an account?{" "}
+            <Link className={css.form_link_text} to="/login">
+              Login
+            </Link>
+          </p>
+        </div>
+      </form>
+    </div>
+  );
+}
+
+export default RegistrationForm;

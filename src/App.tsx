@@ -4,6 +4,8 @@ import Home from "./app/pages/Home/Home";
 import News from "./app/pages/News/News";
 import Notices from "./app/pages/Notices/Notices";
 import Friends from "./app/pages/Friends/Friends";
+import Register from "./app/pages/Register/Register";
+import Login from "./app/pages/Login/Login";
 import Layout from "./Layout";
 
 function App() {
@@ -17,6 +19,8 @@ function App() {
           <Route path="news" element={<News />} />
           <Route path="notices" element={<Notices />} />
           <Route path="friends" element={<Friends />} />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
         </Route>
       </Routes>
     </div>
