@@ -1,5 +1,14 @@
-.header {
+.header_home {
   background-color: transparent;
+  position: absolute;
+  z-index: 2;
+  box-sizing: border-box;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.header {
+  background-color: #f9f9f9;
   position: absolute;
   z-index: 2;
   box-sizing: border-box;

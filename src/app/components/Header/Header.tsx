@@ -10,7 +10,7 @@ function Header() {
 
   const isHome = location.pathname === "/home";
   return (
-    <div className={css.header}>
+    <div className={isHome ? css.header_home : css.header}>
       <div className="container">
         <div className={isHome ? css.header_wrapper_home : css.header_wrapper}>
           <div className={css.header_logo}>
@@ -46,7 +46,7 @@ function Header() {
           </nav>
           <div className={css.header_left}>
             <button className={css.header_login} type="button">
-              Log In
+              <Link to="/login">Log In</Link>
             </button>
             <button className={css.header_registration} type="button">
               <Link to="/register">Registration</Link>

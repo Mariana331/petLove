@@ -1,38 +1,53 @@
 .register {
-  padding-top: 80px;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
+  padding: 80px 0 20px 0;
+  background-color: #f9f9f9;
+  margin: 0 auto;
 }
 
 .register_image {
   border-radius: 30px;
   max-width: 335px;
-  width: 100%;
-  height: 280px;
   margin: 0 auto;
+  overflow: hidden;
+}
+
+.register_image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.register_box {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 @media screen and (min-width: 768px) {
   .register {
-    gap: 16px;
+    padding: 114px 0 32px 0;
   }
 
   .register_image {
     border-radius: 60px;
     max-width: 704px;
-    height: 302px;
+  }
+
+  .register_box {
+    gap: 16px;
   }
 }
 
 @media screen and (min-width: 1280px) {
-  .register {
+  .register_box {
     flex-direction: row;
     gap: 32px;
   }
 
-  .register_image {
-    max-width: 592px;
-    height: 654px;
+  .register_image,
+  .register_form {
+    width: 592px;
+    flex-shrink: 0;
   }
 }

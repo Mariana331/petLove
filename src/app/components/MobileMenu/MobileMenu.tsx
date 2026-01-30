@@ -63,14 +63,19 @@ function MobileMenu({ isOpenMobileMenu, onClose, isHome }: MobileMenuProps) {
             className={isHome ? css.mobile_login : css.mobile_login_orange}
             type="button"
           >
-            Log In
+            <Link to="/login" onClick={onClose}>
+              Log In
+            </Link>
           </button>
           <button className={css.mobile_registration} type="button">
-            <Link to="/register">Registration</Link>
+            <Link to="/register" onClick={onClose}>
+              Registration
+            </Link>
           </button>
           <button
             className={isHome ? css.mobile_logout : css.mobile_logout_orange}
             type="button"
+            onClick={onClose}
           >
             Log out
           </button>

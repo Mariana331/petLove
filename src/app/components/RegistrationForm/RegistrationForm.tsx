@@ -1,5 +1,6 @@
 import css from "./RegistrationForm.module.css";
 import { useForm } from "react-hook-form";
+import { useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
@@ -14,16 +15,17 @@ const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
 
 export const Schema = Yup.object().shape({
   name: Yup.string().required("Name is required"),
-
   email: Yup.string()
     .matches(emailRegex, "Invalid email format")
     .required("Email is required"),
-
   password: Yup.string()
     .min(7, "Minimum 7 characters")
     .required("Password is required"),
 });
+
 export function RegistrationForm() {
+  const [showPassword, setShowPassword] = useState(false);
+
   const { register } = useForm<RegistrationFormData>({
     resolver: yupResolver(Schema),
   });
@@ -31,7 +33,7 @@ export function RegistrationForm() {
     <div className={css.form_box}>
       <div className={css.form_info}>
         <h2 className={css.form_title}>Registration</h2>
-        <p className={css.form_info}>
+        <p className={css.form_text}>
           Thank you for your interest in our platform.
         </p>
       </div>
@@ -49,18 +51,60 @@ export function RegistrationForm() {
             type="email"
             placeholder="Email"
           />
-          <input
-            {...register("password")}
-            className={css.form_input}
-            type="text"
-            placeholder="Password"
-          />
-          <input
-            {...register("password")}
-            className={css.form_input}
-            type="text"
-            placeholder="Confirm password"
-          />
+          <div className={css.password_wrapper}>
+            <button
+              className={css.password_btn_eyes}
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <svg width={18} height={18} className={css.password_eye_icon}>
+                  <use href="/sprite.svg#icon-eye1"></use>
+                </svg>
+              ) : (
+                <svg
+                  width={18}
+                  height={18}
+                  className={css.password_eye_icon_off}
+                >
+                  <use href="/sprite.svg#icon-eye-off"></use>
+                </svg>
+              )}
+            </button>
+            <input
+              {...register("password")}
+              className={css.form_input}
+              type="text"
+              placeholder="Password"
+            />
+          </div>
+          <div className={css.password_wrapper}>
+            <button
+              className={css.password_btn_eyes}
+              type="button"
+              onClick={() => setShowPassword((prev) => !prev)}
+            >
+              {showPassword ? (
+                <svg width={18} height={18} className={css.password_eye_icon}>
+                  <use href="/sprite.svg#icon-eye1"></use>
+                </svg>
+              ) : (
+                <svg
+                  width={18}
+                  height={18}
+                  className={css.password_eye_icon_off}
+                >
+                  <use href="/sprite.svg#icon-eye-off"></use>
+                </svg>
+              )}
+            </button>
+            <input
+              {...register("password")}
+              className={css.form_input}
+              type="text"
+              placeholder="Confirm password"
+            />
+          </div>
         </div>
         <div className={css.form_box_btn}>
           <button className={css.form_btn} type="submit">
