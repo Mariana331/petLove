@@ -11,6 +11,10 @@
   overflow: hidden;
 }
 
+.login_title {
+  display: none;
+}
+
 .login_image img {
   width: 100%;
   height: 100%;
@@ -32,6 +36,15 @@
   .login_image {
     border-radius: 60px;
     max-width: 704px;
+    display: flex;
+    position: relative;
+  }
+
+  .login_title {
+    display: flex;
+    position: absolute;
+    left: 32px;
+    bottom: 32px;
   }
 
   .login_box {

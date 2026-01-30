@@ -11,6 +11,10 @@
   overflow: hidden;
 }
 
+.register_title {
+  display: none;
+}
+
 .register_image img {
   width: 100%;
   height: 100%;
@@ -32,6 +36,15 @@
   .register_image {
     border-radius: 60px;
     max-width: 704px;
+    display: flex;
+    position: relative;
+  }
+
+  .register_title {
+    display: flex;
+    position: absolute;
+    left: 32px;
+    bottom: 32px;
   }
 
   .register_box {

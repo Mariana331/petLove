@@ -1,5 +1,6 @@
 import css from "./Login.module.css";
 import LoginForm from "../../components/LoginForm/LoginForm";
+import Title from "../../components/Title/Title";
 
 function Login() {
   return (
@@ -7,6 +8,14 @@ function Login() {
       <div className="container">
         <div className={css.login_box}>
           <div className={css.login_image}>
+            <div className={css.login_title}>
+              <Title
+                name="Rich"
+                birthday="21.09.2020"
+                text="Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
+                src="/public/title/dog.jpg"
+              />
+            </div>
             <picture>
               <source
                 srcSet="/login/dog.desktop.jpg"
