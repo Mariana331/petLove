@@ -14,7 +14,7 @@ function Register() {
                 birthday="18.10.2021"
                 text="Jack is a gray Persian cat with green eyes. He loves to be pampered
             and groomed, and enjoys playing with toys."
-                src="/public/title/cat.jpg"
+                src="/title/cat.jpg"
               />
             </div>
             <picture>

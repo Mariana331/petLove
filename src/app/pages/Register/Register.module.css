@@ -63,4 +63,9 @@
     width: 592px;
     flex-shrink: 0;
   }
+
+  .register_title {
+    left: 61px;
+    bottom: 97px;
+  }
 }

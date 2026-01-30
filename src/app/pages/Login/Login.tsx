@@ -13,7 +13,7 @@ function Login() {
                 name="Rich"
                 birthday="21.09.2020"
                 text="Rich would be the perfect addition to an active family that loves to play and go on walks. I bet he would love having a doggy playmate too!"
-                src="/public/title/dog.jpg"
+                src="/title/dog.jpg"
               />
             </div>
             <picture>

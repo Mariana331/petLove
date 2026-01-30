@@ -63,4 +63,9 @@
     width: 592px;
     flex-shrink: 0;
   }
+
+  .login_title {
+    left: 61px;
+    bottom: 97px;
+  }
 }
