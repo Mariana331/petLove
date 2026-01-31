@@ -10,9 +10,9 @@
 .header {
   background-color: #f9f9f9;
   position: absolute;
-  z-index: 2;
   box-sizing: border-box;
   width: 100%;
+  z-index: 2;
   margin: 0 auto;
 }
 
@@ -24,6 +24,7 @@
 
 .header_wrapper {
   padding-top: 17px;
+  padding-bottom: 16px;
   display: flex;
   justify-content: space-between;
 }
@@ -168,7 +169,8 @@
   }
 
   .header_wrapper {
-    padding-top: 16px;
+    padding-top: 32px;
+    padding-bottom: 32px;
   }
 
   .header_login,
@@ -199,10 +201,6 @@
 @media screen and (min-width: 1280px) {
   .header_wrapper_home {
     padding: 17px 64px 0 64px;
-  }
-
-  .header_wrapper {
-    padding-top: 17px;
   }
 
   .header_nav {

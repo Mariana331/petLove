@@ -6,6 +6,7 @@ import Notices from "./app/pages/Notices/Notices";
 import Friends from "./app/pages/Friends/Friends";
 import Register from "./app/pages/Register/Register";
 import Login from "./app/pages/Login/Login";
+import NotFound from "./app/pages/NotFound/NotFound";
 import Layout from "./Layout";
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
           <Route path="friends" element={<Friends />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
       </Routes>
     </div>
