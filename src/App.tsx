@@ -7,6 +7,7 @@ import Friends from "./app/pages/Friends/Friends";
 import Register from "./app/pages/Register/Register";
 import Login from "./app/pages/Login/Login";
 import NotFound from "./app/pages/NotFound/NotFound";
+import AddPet from "./app/pages/AddPet/AddPet";
 import Layout from "./Layout";
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
+          <Route path="/add-pet" element={<AddPet />} />
         </Route>
       </Routes>
     </div>

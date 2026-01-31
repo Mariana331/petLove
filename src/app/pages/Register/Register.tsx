@@ -1,6 +1,7 @@
 import css from "./Register.module.css";
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
 import Title from "../../components/Title/Title";
+import PetBlock from "../../components/PetBlock/PetBlock";
 
 function Register() {
   return (
@@ -17,17 +18,11 @@ function Register() {
                 src="/title/cat.jpg"
               />
             </div>
-            <picture>
-              <source
-                srcSet="/register/cat.desktop.jpg"
-                media="(min-width: 1280px)"
-              />
-              <source
-                srcSet="/register/cat.tablet.jpg"
-                media="(min-width: 768px)"
-              />
-              <img src="/register/cat.mobile.jpg" alt="Cat" />
-            </picture>
+            <PetBlock
+              desktopSet="/register/cat.desktop.jpg"
+              laptopSet="/register/cat.tablet.jpg"
+              mobileSrc="/register/cat.mobile.jpg"
+            />
           </div>
           <div className={css.register_form}>
             <RegistrationForm />

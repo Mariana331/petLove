@@ -10,11 +10,12 @@ interface LoginFormData {
   password: string;
 }
 
-const emailRegex = /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/;
-
 export const Schema = Yup.object().shape({
   email: Yup.string()
-    .matches(emailRegex, "Invalid email format")
+    .matches(
+      /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
+      "Invalid email format",
+    )
     .required("Email is required"),
   password: Yup.string()
     .min(7, "Minimum 7 characters")

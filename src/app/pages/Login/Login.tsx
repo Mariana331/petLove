@@ -1,6 +1,7 @@
 import css from "./Login.module.css";
 import LoginForm from "../../components/LoginForm/LoginForm";
 import Title from "../../components/Title/Title";
+import PetBlock from "../../components/PetBlock/PetBlock";
 
 function Login() {
   return (
@@ -16,17 +17,11 @@ function Login() {
                 src="/title/dog.jpg"
               />
             </div>
-            <picture>
-              <source
-                srcSet="/login/dog.desktop.jpg"
-                media="(min-width: 1280px)"
-              />
-              <source
-                srcSet="/login/dog.tablet.jpg"
-                media="(min-width: 768px)"
-              />
-              <img src="/login/dog.mobile.jpg" alt="Cat" />
-            </picture>
+            <PetBlock
+              desktopSet="/login/dog.desktop.jpg"
+              laptopSet="/login/dog.tablet.jpg"
+              mobileSrc="/login/dog.mobile.jpg"
+            />
           </div>
           <div className={css.login_form}>
             <LoginForm />
