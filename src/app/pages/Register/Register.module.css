@@ -36,6 +36,7 @@
   .register_title {
     display: flex;
     position: absolute;
+    z-index: 2;
     left: 32px;
     bottom: 32px;
   }
