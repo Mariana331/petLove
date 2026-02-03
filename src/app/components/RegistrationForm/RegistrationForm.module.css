@@ -33,6 +33,38 @@
   gap: 10px;
   margin-bottom: 24px;
 }
+.email_wrapper {
+  position: relative;
+}
+
+.email_btn {
+  position: absolute;
+  top: 13px;
+  right: 13px;
+  border: none;
+  cursor: pointer;
+  display: block;
+}
+
+.input_error {
+  border: 1px solid #ef2447;
+}
+
+.input_valid {
+  border: 1px solid #08aa83;
+}
+
+.email_icon_true {
+  stroke-width: 1.5px;
+  stroke: #08aa83;
+  fill: transparent;
+}
+
+.email_icon_false {
+  stroke-width: 2px;
+  stroke: #ef2447;
+  fill: none;
+}
 
 .form_input {
   border: 1px solid rgba(38, 38, 38, 0.15);
@@ -111,6 +143,24 @@
   color: #f6b83d;
 }
 
+.form_input:focus {
+  outline: none;
+}
+
+.form_input:not(:placeholder-shown) {
+  border-color: #f6b83d;
+}
+
+.form_input.input_error,
+.form_input.input_error:focus {
+  border-color: #ef2447;
+}
+
+.form_input.input_valid,
+.form_input.input_valid:focus {
+  border-color: #08aa83;
+}
+
 @media screen and (min-width: 768px) {
   .form_box {
     border-radius: 60px;
@@ -144,13 +194,21 @@
   }
 
   .password_eye_icon,
-  .password_eye_icon_off {
+  .password_eye_icon_off,
+  .email_icon_true,
+  .email_icon_false {
     width: 22px;
     height: 22px;
   }
 
   .form_wrapper {
     gap: 16px;
+  }
+
+  .email_icon_true,
+  .email_icon_false {
+    width: 22px;
+    height: 22px;
   }
 
   .form_btn {

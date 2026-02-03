@@ -9,3 +9,21 @@
   gap: 10px;
   margin: 0 auto;
 }
+
+@media screen and (min-width: 768px) {
+  .add_pet {
+    padding: 114px 0 32px 0;
+    background-color: #f9f9f9;
+  }
+
+  .pet_form {
+    gap: 16px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .pet_form {
+    gap: 32px;
+    flex-direction: row;
+  }
+}

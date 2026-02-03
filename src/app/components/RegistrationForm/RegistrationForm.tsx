@@ -18,7 +18,7 @@ export const Schema = Yup.object().shape({
       /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
       "Invalid email format",
     )
-    .required("Email is required"),
+    .required("Enter a valid Email"),
   password: Yup.string()
     .min(7, "Minimum 7 characters")
     .required("Password is required"),
@@ -26,10 +26,20 @@ export const Schema = Yup.object().shape({
 
 export function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const { register } = useForm<RegistrationFormData>({
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<RegistrationFormData>({
     resolver: yupResolver(Schema),
+    mode: "onChange",
   });
+
+  const isEmail = watch("email");
+
   return (
     <div className={css.form_box}>
       <div className={css.form_info}>
@@ -46,37 +56,35 @@ export function RegistrationForm() {
             type="text"
             placeholder="Name"
           />
-          <input
-            {...register("email")}
-            className={css.form_input}
-            type="email"
-            placeholder="Email"
-          />
-          <div className={css.password_wrapper}>
-            <button
-              className={css.password_btn_eyes}
-              type="button"
-              onClick={() => setShowPassword((prev) => !prev)}
-            >
-              {showPassword ? (
-                <svg width={18} height={18} className={css.password_eye_icon}>
-                  <use href="/sprite.svg#icon-eye1"></use>
-                </svg>
-              ) : (
-                <svg
-                  width={18}
-                  height={18}
-                  className={css.password_eye_icon_off}
-                >
-                  <use href="/sprite.svg#icon-eye-off"></use>
-                </svg>
-              )}
-            </button>
+          <div className={css.email_wrapper}>
+            {isEmail && (
+              <button
+                className={css.email_btn}
+                type="button"
+                onClick={() => setValue("email", "")}
+              >
+                {errors.email ? (
+                  <svg width={18} height={18} className={css.email_icon_false}>
+                    <use href="/sprite.svg#icon-cross"></use>
+                  </svg>
+                ) : (
+                  <svg width={18} height={18} className={css.email_icon_true}>
+                    <use href="/sprite.svg#icon-check"></use>
+                  </svg>
+                )}
+              </button>
+            )}
             <input
-              {...register("password")}
-              className={css.form_input}
-              type="text"
-              placeholder="Password"
+              {...register("email")}
+              className={`${css.form_input} ${
+                isEmail
+                  ? errors.email
+                    ? css.input_error
+                    : css.input_valid
+                  : ""
+              }`}
+              type="email"
+              placeholder="Email"
             />
           </div>
           <div className={css.password_wrapper}>
@@ -102,7 +110,34 @@ export function RegistrationForm() {
             <input
               {...register("password")}
               className={css.form_input}
-              type="text"
+              type={showPassword ? "text" : "password"}
+              placeholder="Password"
+            />
+          </div>
+          <div className={css.password_wrapper}>
+            <button
+              className={css.password_btn_eyes}
+              type="button"
+              onClick={() => setShowConfirmPassword((prev) => !prev)}
+            >
+              {showConfirmPassword ? (
+                <svg width={18} height={18} className={css.password_eye_icon}>
+                  <use href="/sprite.svg#icon-eye1"></use>
+                </svg>
+              ) : (
+                <svg
+                  width={18}
+                  height={18}
+                  className={css.password_eye_icon_off}
+                >
+                  <use href="/sprite.svg#icon-eye-off"></use>
+                </svg>
+              )}
+            </button>
+            <input
+              {...register("password")}
+              className={css.form_input}
+              type={showPassword ? "text" : "password"}
               placeholder="Confirm password"
             />
           </div>

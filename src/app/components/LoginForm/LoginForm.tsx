@@ -14,7 +14,7 @@ export const Schema = Yup.object().shape({
   email: Yup.string()
     .matches(
       /^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/,
-      "Invalid email format",
+      "Enter a valid Email",
     )
     .required("Email is required"),
   password: Yup.string()
@@ -25,9 +25,17 @@ export const Schema = Yup.object().shape({
 function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
 
-  const { register } = useForm<LoginFormData>({
+  const {
+    register,
+    watch,
+    setValue,
+    formState: { errors },
+  } = useForm<LoginFormData>({
     resolver: yupResolver(Schema),
+    mode: "onChange",
   });
+
+  const isEmail = watch("email");
 
   return (
     <div className={css.form_box}>
@@ -39,12 +47,37 @@ function LoginForm() {
       </div>
       <form className={css.form}>
         <div className={css.form_wrapper}>
-          <input
-            {...register("email")}
-            className={css.form_input}
-            type="email"
-            placeholder="Email"
-          />
+          <div className={css.email_wrapper}>
+            {isEmail && (
+              <button
+                className={css.email_btn}
+                type="button"
+                onClick={() => setValue("email", "")}
+              >
+                {errors.email ? (
+                  <svg width={18} height={18} className={css.email_icon_false}>
+                    <use href="/sprite.svg#icon-cross"></use>
+                  </svg>
+                ) : (
+                  <svg width={18} height={18} className={css.email_icon_true}>
+                    <use href="/sprite.svg#icon-check"></use>
+                  </svg>
+                )}
+              </button>
+            )}
+            <input
+              {...register("email")}
+              className={`${css.form_input} ${
+                isEmail
+                  ? errors.email
+                    ? css.input_error
+                    : css.input_valid
+                  : ""
+              }`}
+              type="email"
+              placeholder="Email"
+            />
+          </div>
           <div className={css.password_wrapper}>
             <button
               className={css.password_btn_eyes}
@@ -68,14 +101,14 @@ function LoginForm() {
             <input
               {...register("password")}
               className={css.form_input}
-              type="text"
+              type={showPassword ? "text" : "password"}
               placeholder="Password"
             />
           </div>
         </div>
         <div className={css.form_box_btn}>
           <button className={css.form_btn} type="submit">
-            Registration
+            Log In
           </button>
           <p className={css.form_link}>
             Don’t have an account?{" "}
