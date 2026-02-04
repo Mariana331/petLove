@@ -1,0 +1,64 @@
+.search_form {
+  display: flex;
+  position: relative;
+  max-width: 335px;
+  margin: 0 auto;
+}
+
+.input_form {
+  padding: 12px;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  border-radius: 30px;
+  background-color: transparent;
+  width: 100%;
+}
+
+.input_form::placeholder {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.icon_search {
+  stroke-width: 2px;
+  stroke: #262626;
+  fill: transparent;
+}
+
+.icon_cross {
+  stroke-width: 2px;
+  stroke: #262626;
+  fill: none;
+}
+
+.form_btn {
+  display: flex;
+  gap: 4px;
+  position: absolute;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  top: 12px;
+  right: 12px;
+}
+
+@media screen and (min-width: 768px) {
+  .search_form {
+    max-width: 230px;
+  }
+
+  .input_form {
+    padding: 14px;
+  }
+
+  .input_form::placeholder {
+    font-size: 16px;
+  }
+
+  .form_btn {
+    top: 14px;
+    right: 14px;
+  }
+}

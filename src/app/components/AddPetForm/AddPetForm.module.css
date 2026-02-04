@@ -166,6 +166,7 @@
   border-radius: 30px;
   padding: 12px;
   max-width: 170px;
+  width: 100%;
 }
 
 input:focus {

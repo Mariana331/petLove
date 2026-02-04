@@ -4,6 +4,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
+import Title from "../Title/Title";
 
 interface RegistrationFormData {
   name: string;
@@ -43,7 +44,9 @@ export function RegistrationForm() {
   return (
     <div className={css.form_box}>
       <div className={css.form_info}>
-        <h2 className={css.form_title}>Registration</h2>
+        <div className={css.form_title}>
+          <Title title="Registration" />
+        </div>
         <p className={css.form_text}>
           Thank you for your interest in our platform.
         </p>

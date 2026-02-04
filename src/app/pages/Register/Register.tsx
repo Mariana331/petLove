@@ -1,6 +1,6 @@
 import css from "./Register.module.css";
 import RegistrationForm from "../../components/RegistrationForm/RegistrationForm";
-import Title from "../../components/Title/Title";
+import PetTitle from "../../components/PetTitle/PetTitle";
 import PetBlock from "../../components/PetBlock/PetBlock";
 
 function Register() {
@@ -10,7 +10,7 @@ function Register() {
         <div className={css.register_box}>
           <div className={css.register_image}>
             <div className={css.register_title}>
-              <Title
+              <PetTitle
                 name="Jack"
                 birthday="18.10.2021"
                 text="Jack is a gray Persian cat with green eyes. He loves to be pampered

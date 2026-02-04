@@ -4,6 +4,7 @@ import { useState } from "react";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
+import Title from "../Title/Title";
 
 interface LoginFormData {
   email: string;
@@ -40,7 +41,9 @@ function LoginForm() {
   return (
     <div className={css.form_box}>
       <div className={css.form_info}>
-        <h2 className={css.form_title}>Log in</h2>
+        <div className={css.form_title}>
+          <Title title="Log in" />
+        </div>
         <p className={css.form_text}>
           Welcome! Please enter your credentials to login to the platform:
         </p>

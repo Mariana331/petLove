@@ -1,0 +1,25 @@
+.news_list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .news_list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 0;
+    row-gap: 24px;
+    column-gap: 32px;
+    justify-content: center;
+    align-items: start;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .news_list {
+    row-gap: 35px;
+    column-gap: 40px;
+  }
+}
