@@ -27,10 +27,11 @@
 
 @media screen and (min-width: 1280px) {
   .news {
-    padding-top: 178px;
+    padding: 178px 32px 80px 32px;
   }
 
   .box_top {
     margin-bottom: 60px;
+    padding: 0 32px;
   }
 }

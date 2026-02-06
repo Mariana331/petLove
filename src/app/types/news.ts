@@ -7,7 +7,3 @@ export type NewResult = {
   url: string;
   id: string;
 };
-
-export interface NewsResponse {
-  results: NewResult[];
-}
