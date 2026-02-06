@@ -1,5 +1,6 @@
+import css from "./Friends.module.css";
 function Friends() {
-  return <div>Сторінка Friends</div>;
+  return <div className={css.friends}></div>;
 }
 
 export default Friends;
