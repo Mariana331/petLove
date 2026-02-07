@@ -1,6 +1,31 @@
 .friends {
   padding: 114px 0 80px 0;
   background: #f9f9f9;
-  gap: 40px;
   display: flex;
+}
+
+.friends_container {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+}
+
+@media screen and (min-width: 768px) {
+  .friends {
+    padding-top: 167px;
+  }
+
+  .friends_container {
+    gap: 44px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .friends {
+    padding: 178px 32px 80px 32px;
+  }
+
+  .friends_container {
+    gap: 60px;
+  }
 }

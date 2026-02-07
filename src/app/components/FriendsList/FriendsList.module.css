@@ -1,0 +1,22 @@
+.friends_list {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+}
+
+@media screen and (min-width: 768px) {
+  .friends_list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 21px;
+    column-gap: 20px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .friends_list {
+    row-gap: 28px;
+  }
+}

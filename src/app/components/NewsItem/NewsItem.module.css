@@ -31,7 +31,6 @@
   letter-spacing: -0.03em;
   color: #262626;
   margin-bottom: 12px;
-  /* height: 40px; */
 }
 
 .new_text {
@@ -87,7 +86,6 @@
   .new_title {
     font-size: 20px;
     margin-bottom: 14px;
-    /* height: 52px; */
   }
 
   .new_text,

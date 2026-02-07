@@ -21,6 +21,15 @@
   color: rgba(38, 38, 38, 0.5);
 }
 
+.box_icon {
+  position: absolute;
+  top: 50%;
+  right: 12px;
+  display: flex;
+  gap: 4px;
+  transform: translateY(-50%);
+}
+
 .icon_search {
   stroke-width: 2px;
   stroke: #262626;
@@ -33,15 +42,15 @@
   fill: none;
 }
 
+.form_btn_search,
 .form_btn {
   display: flex;
-  gap: 4px;
-  position: absolute;
   align-items: center;
   justify-content: center;
   padding: 0;
-  top: 12px;
-  right: 12px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 
 @media screen and (min-width: 768px) {

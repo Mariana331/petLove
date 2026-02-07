@@ -11,8 +11,8 @@ import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 
 function News() {
   const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
   const limit = 6;
-  const keyword = "";
 
   const { data, isLoading, isError } = useQuery<NewsResponse>({
     queryKey: ["results", page, limit, keyword],
@@ -24,7 +24,13 @@ function News() {
       <div className="container">
         <div className={css.box_top}>
           <Title title="News" />
-          <SearchField />
+          <SearchField
+            value={keyword}
+            onSubmit={(value) => {
+              setKeyword(value);
+              setPage(1);
+            }}
+          />
         </div>
         {data && <NewList results={data.results} />}
         {!isLoading && data && data.results.length === 0 && (
