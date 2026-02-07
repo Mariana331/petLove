@@ -1,0 +1,7 @@
+.notices {
+  padding: 114px 0 80px 0;
+  background: #f9f9f9;
+  flex-direction: column;
+  gap: 40px;
+  display: flex;
+}

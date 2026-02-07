@@ -1,0 +1,25 @@
+.pet_list {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  align-items: center;
+}
+
+@media screen and (min-width: 768px) {
+  .pet_list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .pet_list {
+    row-gap: 40px;
+    column-gap: 35px;
+    padding: 0 32px;
+  }
+}

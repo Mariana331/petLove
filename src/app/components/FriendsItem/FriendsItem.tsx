@@ -31,19 +31,37 @@ function FriendsItem({ friend }: FriendsItemProps) {
 
         <ul className={css.friends_data}>
           <li className={css.friend_item}>
-            Email:{" "}
+            <a
+              href={friend.addressUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Email:{" "}
+            </a>
             <span className={css.span_text}>
               {friend.email ? friend.email : "website only"}
             </span>
           </li>
           <li className={css.friend_item}>
-            Address:{" "}
+            <a
+              href={friend.addressUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Address:{" "}
+            </a>
             <span className={css.span_text}>
               {friend.address ? friend.address : "website only"}
             </span>
           </li>
           <li className={css.friend_item}>
-            Phone:{" "}
+            <a
+              href={friend.addressUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Phone:{" "}
+            </a>
             <span className={css.span_text}>
               {friend.phone ? friend.phone : "website only"}
             </span>

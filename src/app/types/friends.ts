@@ -2,7 +2,7 @@ export interface Friend {
   _id: string;
   title: string;
   url?: string | null;
-  addressUrl?: string | null;
+  addressUrl?: string | undefined;
   imageUrl: string;
   address?: string | null;
   phone?: string | null;
