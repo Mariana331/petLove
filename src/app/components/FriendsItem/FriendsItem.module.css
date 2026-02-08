@@ -1,7 +1,6 @@
 .friends_item {
   background: #fff;
   border-radius: 15px;
-  width: 100%;
   padding: 40px 20px;
   position: relative;
   display: flex;
@@ -105,5 +104,6 @@
   .friends_item {
     gap: 16px;
     width: calc((100% - 40px) / 3);
+    max-width: 371px;
   }
 }

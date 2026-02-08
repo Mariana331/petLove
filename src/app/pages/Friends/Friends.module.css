@@ -1,7 +1,6 @@
 .friends {
   padding: 114px 0 80px 0;
   background: #f9f9f9;
-  display: flex;
 }
 
 .friends_container {
@@ -22,10 +21,11 @@
 
 @media screen and (min-width: 1280px) {
   .friends {
-    padding: 178px 32px 80px 32px;
+    padding: 178px 0 80px 0;
   }
 
   .friends_container {
     gap: 60px;
+    padding: 0 32px;
   }
 }

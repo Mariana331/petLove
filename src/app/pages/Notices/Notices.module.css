@@ -1,7 +1,26 @@
 .notices {
   padding: 114px 0 80px 0;
   background: #f9f9f9;
+}
+
+.notices_container {
   flex-direction: column;
   gap: 40px;
   display: flex;
+}
+
+@media screen and (min-width: 768px) {
+  .notices {
+    padding-top: 167px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .notices {
+    padding: 178px 0 80px 0;
+  }
+
+  .notices_container {
+    padding: 0 32px;
+  }
 }
