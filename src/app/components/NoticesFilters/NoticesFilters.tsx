@@ -5,9 +5,10 @@ import Select from "react-select";
 interface NoticesFilterProps {
   value: string;
   onSubmit: (value: string) => void;
+  onChange: (value: string) => void;
 }
 
-function NoticesFilter({ value, onSubmit }: NoticesFilterProps) {
+function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
   return (
     <div className={css.notices_filter}>
       <div className={css.forms}>
