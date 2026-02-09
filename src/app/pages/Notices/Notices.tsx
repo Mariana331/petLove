@@ -3,6 +3,7 @@ import css from "./Notices.module.css";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import NoticesList from "../../components/NoticesList/NoticesList";
+import NoticesFilter from "../../components/NoticesFilters/NoticesFilters";
 import Pagination from "../../components/Pagination/Pagination";
 import { getNotices } from "../../services/notices";
 import { useState } from "react";
@@ -10,11 +11,12 @@ import type { NoticeResponse } from "../../services/notices";
 
 function Notices() {
   const [page, setPage] = useState(1);
+  const [keyword, setKeyword] = useState("");
   const limit = 6;
 
   const { data, isLoading, isError } = useQuery<NoticeResponse>({
-    queryKey: ["results", page, limit],
-    queryFn: () => getNotices({ page, limit }),
+    queryKey: ["results", page, limit, keyword],
+    queryFn: () => getNotices({ page, limit, keyword }),
     placeholderData: keepPreviousData,
   });
   return (
@@ -22,6 +24,13 @@ function Notices() {
       <div className="container">
         <div className={css.notices_container}>
           <Title title="Find your favorite pet" />
+          <NoticesFilter
+            value={keyword}
+            onSubmit={(value) => {
+              setKeyword(value);
+              setPage(1);
+            }}
+          />
           {data && <NoticesList results={data.results} />}
           {!isLoading && data && data.results.length === 0 && (
             <p>No pets found for this filter.</p>

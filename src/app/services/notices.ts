@@ -11,14 +11,16 @@ export interface NoticeResponse {
 interface GetNoticeParams {
   page: number;
   limit: number;
+  keyword: string;
 }
 
 export async function getNotices({
   page,
   limit,
+  keyword,
 }: GetNoticeParams): Promise<NoticeResponse> {
   const res = await axios.get<NoticeResponse>(`${url}/notices`, {
-    params: { page, limit },
+    params: { page, limit, keyword },
   });
   return res.data;
 }

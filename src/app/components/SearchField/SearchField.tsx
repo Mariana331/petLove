@@ -1,5 +1,6 @@
 import css from "./SearchField.module.css";
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 interface SearchFieldProps {
   value?: string;
@@ -13,6 +14,9 @@ function SearchField({
   placeholder = "Search",
 }: SearchFieldProps) {
   const [query, setQuery] = useState(value);
+
+  const location = useLocation();
+  const isNotice = location.pathname === "/notices";
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +32,7 @@ function SearchField({
     <div className={css.search_field}>
       <form className={css.search_form} onSubmit={handleSubmit}>
         <input
-          className={css.input_form}
+          className={isNotice ? css.input_form_notice : css.input_form}
           placeholder={placeholder}
           type="text"
           value={query}
