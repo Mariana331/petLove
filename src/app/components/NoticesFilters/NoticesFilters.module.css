@@ -133,6 +133,10 @@
 }
 
 @media screen and (min-width: 768px) {
+  .notices_filter {
+    padding: 40px 32px;
+  }
+
   .forms {
     flex-direction: row;
     flex-wrap: wrap;
@@ -181,6 +185,10 @@
 }
 
 @media screen and (min-width: 1280px) {
+  .notices_filter {
+    padding: 40px;
+  }
+
   .forms {
     flex-wrap: nowrap;
   }

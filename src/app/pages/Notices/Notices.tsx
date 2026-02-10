@@ -12,11 +12,12 @@ import type { NoticeResponse } from "../../services/notices";
 function Notices() {
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
+  const [location, setLocation] = useState("");
   const limit = 6;
 
   const { data, isLoading, isError } = useQuery<NoticeResponse>({
-    queryKey: ["results", page, limit, keyword],
-    queryFn: () => getNotices({ page, limit, keyword }),
+    queryKey: ["results", page, limit, keyword, location],
+    queryFn: () => getNotices({ page, limit, keyword, location }),
     placeholderData: keepPreviousData,
   });
   return (
@@ -25,9 +26,14 @@ function Notices() {
         <div className={css.notices_container}>
           <Title title="Find your favorite pet" />
           <NoticesFilter
-            value={keyword}
-            onSubmit={(value) => {
+            keyword={keyword}
+            location={location}
+            onSubmitKeyword={(value) => {
               setKeyword(value);
+              setPage(1);
+            }}
+            onSubmitLocation={(value) => {
+              setLocation(value);
               setPage(1);
             }}
           />

@@ -5,12 +5,18 @@ import Select from "react-select";
 import { useState } from "react";
 
 interface NoticesFilterProps {
-  value: "";
-  onSubmit: (value: string) => void;
-  onChange: (value: string) => void;
+  keyword: string;
+  location: string;
+  onSubmitKeyword: (value: string) => void;
+  onSubmitLocation: (value: string) => void;
 }
 
-function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
+function NoticesFilter({
+  keyword,
+  location,
+  onSubmitKeyword,
+  onSubmitLocation,
+}: NoticesFilterProps) {
   const [category, setCategory] = useState("");
   const [gender, setGender] = useState("");
   const [type, setType] = useState("");
@@ -53,7 +59,7 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
     <div className={css.notices_filter}>
       <div className={css.forms}>
         <div className={css.search_form}>
-          <SearchField value={value} onSubmit={onSubmit} />
+          <SearchField value={keyword} onSubmit={onSubmitKeyword} />
         </div>
 
         <div className={css.second_box_form}>
@@ -125,7 +131,7 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
         </div>
 
         <div className={css.form_location}>
-          <LocationField value={value} onSubmit={onSubmit} />
+          <LocationField value={location} onSubmit={onSubmitLocation} />
         </div>
       </div>
       <div className={css.form_radio}>
@@ -135,13 +141,13 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             name="gender"
             value="popular"
             // checked={value === "popular"}
-            onChange={() => onChange("popular")}
+            // onChange={() => onChange("popular")}
           />
           Popular
           <svg
             onClick={(e) => {
               e.stopPropagation();
-              onChange("");
+              // onChange("");
             }}
             xmlns="http://www.w3.org/2000/svg"
             width="12"
@@ -165,13 +171,13 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             name="gender"
             value="unpopular"
             // checked={value === "unpopular"}
-            onChange={() => onChange("unpopular")}
+            // onChange={() => onChange("unpopular")}
           />
           Unpopular
           <svg
             onClick={(e) => {
               e.stopPropagation();
-              onChange("");
+              // onChange("");
             }}
             xmlns="http://www.w3.org/2000/svg"
             width="12"
@@ -195,13 +201,13 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             name="gender"
             value="female"
             // checked={value === "cheap"}
-            onChange={() => onChange("cheap")}
+            // onChange={() => onChange("cheap")}
           />
           Cheap
           <svg
             onClick={(e) => {
               e.stopPropagation();
-              onChange("");
+              // onChange("");
             }}
             xmlns="http://www.w3.org/2000/svg"
             width="12"
@@ -224,13 +230,13 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             name="gender"
             value="female"
             // checked={value === "expensive"}
-            onChange={() => onChange("expensive")}
+            // onChange={() => onChange("expensive")}
           />
           Expensive
           <svg
             onClick={(e) => {
               e.stopPropagation();
-              onChange("");
+              // onChange("");
             }}
             xmlns="http://www.w3.org/2000/svg"
             width="12"
