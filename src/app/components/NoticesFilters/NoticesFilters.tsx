@@ -1,70 +1,131 @@
 import css from "./NoticesFilters.module.css";
 import SearchField from "../SearchField/SearchField";
+import LocationField from "../LocationField/LocationField";
 import Select from "react-select";
+import { useState } from "react";
 
 interface NoticesFilterProps {
-  value: string;
+  value: "";
   onSubmit: (value: string) => void;
   onChange: (value: string) => void;
 }
 
 function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
+  const [category, setCategory] = useState("");
+  const [gender, setGender] = useState("");
+  const [type, setType] = useState("");
+
+  const categoryOptions = [
+    { value: "", label: "Show all" },
+    { value: "sell", label: "Sell" },
+    { value: "free", label: "Free" },
+    { value: "lost", label: "Lost" },
+    { value: "found", label: "Found" },
+  ];
+
+  const genderOptions = [
+    { value: "", label: "Show all" },
+    { value: "unknown", label: "Unknown" },
+    { value: "female", label: "Female" },
+    { value: "male", label: "Male" },
+    { value: "multiple", label: "Multiple" },
+  ];
+
+  const typeOptions = [
+    { value: "", label: "Show all" },
+    { value: "dog", label: "Dog" },
+    { value: "cat", label: "Cat" },
+    { value: "monkey", label: "Monkey" },
+    { value: "bird", label: "Bird" },
+    { value: "snake", label: "Snake" },
+    { value: "turtle", label: "Turtle" },
+    { value: "lizard", label: "Lizard" },
+    { value: "frog", label: "Frog" },
+    { value: "fish", label: "Fish" },
+    { value: "ants", label: "Ants" },
+    { value: "bees", label: "Bees" },
+    { value: "butterfly", label: "Butterfly" },
+    { value: "spider", label: "Spider" },
+    { value: "scorpion", label: "Scorpion" },
+  ];
+
   return (
     <div className={css.notices_filter}>
       <div className={css.forms}>
         <div className={css.search_form}>
           <SearchField value={value} onSubmit={onSubmit} />
         </div>
+
         <div className={css.second_box_form}>
           <div className={css.form_category}>
             <Select
-              options={[
-                { value: "", label: "Show all" },
-                { value: "sell", label: "Sell" },
-                { value: "free", label: "Free" },
-                { value: "lost", label: "Lost" },
-                { value: "found", label: "Found" },
-              ]}
-              onChange={(option) => onChange(option?.value ?? "")}
+              unstyled
+              placeholder="Category"
+              value={
+                category
+                  ? categoryOptions.find((opt) => opt.value === category)
+                  : null
+              }
+              options={categoryOptions}
+              onChange={(option) => setCategory(option?.value ?? "")}
+              classNames={{
+                control: () => css.control_category,
+                valueContainer: () => css.valueContainer,
+                singleValue: () => css.singleValue,
+                indicatorsContainer: () => css.indicators,
+                option: (state) =>
+                  state.isSelected ? css.optionSelected : css.option,
+                menu: () => css.menu,
+                placeholder: () => css.placeholder,
+              }}
             />
           </div>
+
           <div className={css.form_gender}>
             <Select
-              options={[
-                { value: "", label: "Show all" },
-                { value: "unknown", label: "Unknown" },
-                { value: "female", label: "Female" },
-                { value: "male", label: "Male" },
-                { value: "multiple", label: "Multiple" },
-              ]}
-              onChange={(option) => onChange(option?.value ?? "")}
+              unstyled
+              placeholder="Gender"
+              value={
+                gender
+                  ? genderOptions.find((opt) => opt.value === gender)
+                  : null
+              }
+              options={genderOptions}
+              onChange={(option) => setGender(option?.value ?? "")}
+              classNames={{
+                control: () => css.control_category,
+                valueContainer: () => css.valueContainer,
+                singleValue: () => css.singleValue,
+                option: (state) =>
+                  state.isSelected ? css.optionSelected : css.option,
+                menu: () => css.menu,
+                placeholder: () => css.placeholder,
+              }}
             />
           </div>
         </div>
+
         <div className={css.form_type}>
           <Select
-            options={[
-              { value: "", label: "Show all" },
-              { value: "dog", label: "Dog" },
-              { value: "cat", label: "Cat" },
-              { value: "monkey", label: "Monkey" },
-              { value: "bird", label: "Bird" },
-              { value: "snake", label: "Snake" },
-              { value: "turtle", label: "Turtle" },
-              { value: "lizard", label: "Lizard" },
-              { value: "frog", label: "Frog" },
-              { value: "fish", label: "Fish" },
-              { value: "ants", label: "Ants" },
-              { value: "bees", label: "Bees" },
-              { value: "butterfly", label: "Butterfly" },
-              { value: "spider", label: "Spider" },
-              { value: "scorpion", label: "Scorpion" },
-            ]}
-            onChange={(option) => onChange(option?.value ?? "")}
+            unstyled
+            placeholder="By type"
+            value={type ? typeOptions.find((opt) => opt.value === type) : null}
+            options={typeOptions}
+            onChange={(option) => setType(option?.value ?? "")}
+            classNames={{
+              control: () => css.control_category,
+              valueContainer: () => css.valueContainer,
+              singleValue: () => css.singleValue,
+              option: (state) =>
+                state.isSelected ? css.optionSelected : css.option,
+              menu: () => css.menu,
+              placeholder: () => css.placeholder,
+            }}
           />
         </div>
+
         <div className={css.form_location}>
-          <Select />
+          <LocationField value={value} onSubmit={onSubmit} />
         </div>
       </div>
       <div className={css.form_radio}>
@@ -73,7 +134,7 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             type="radio"
             name="gender"
             value="popular"
-            checked={value === "popular"}
+            // checked={value === "popular"}
             onChange={() => onChange("popular")}
           />
           Popular
@@ -103,7 +164,7 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             type="radio"
             name="gender"
             value="unpopular"
-            checked={value === "unpopular"}
+            // checked={value === "unpopular"}
             onChange={() => onChange("unpopular")}
           />
           Unpopular
@@ -133,7 +194,7 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             type="radio"
             name="gender"
             value="female"
-            checked={value === "cheap"}
+            // checked={value === "cheap"}
             onChange={() => onChange("cheap")}
           />
           Cheap
@@ -162,7 +223,7 @@ function NoticesFilter({ value, onSubmit, onChange }: NoticesFilterProps) {
             type="radio"
             name="gender"
             value="female"
-            checked={value === "expensive"}
+            // checked={value === "expensive"}
             onChange={() => onChange("expensive")}
           />
           Expensive

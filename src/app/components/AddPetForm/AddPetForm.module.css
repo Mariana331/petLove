@@ -229,7 +229,7 @@ input:not(:placeholder-shown) {
 
 .wrapper_data_type {
   display: flex;
-  flex-direction: row;
+  flex-wrap: wrap;
   gap: 8px;
   margin-bottom: 31px;
 }
@@ -252,37 +252,101 @@ input:not(:placeholder-shown) {
   width: 100%;
 }
 
-.wrapper_select {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  position: relative;
-  appearance: none;
-  border: none;
-  gap: 32px;
+.wrapper_data_label,
+.control_pet {
+  flex: 1;
+}
+
+.control_pet {
+  border-radius: 30px;
+  padding: 0 12px;
+  min-height: 42px;
+  height: 42px;
+  min-width: 143px;
+  box-sizing: border-box;
+  background: #fff;
   font-weight: 500;
   font-size: 14px;
   line-height: 129%;
   letter-spacing: -0.03em;
-  color: rgba(38, 38, 38, 0.5);
-  cursor: pointer;
+  color: #262626;
+  display: flex;
+  align-items: center;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+}
+
+.menu {
   width: 100%;
-  appearance: none;
-  border: none;
+  padding: 12px;
+  margin-top: 4px;
+  border-radius: 15px;
+  background: #fff;
+  overflow: hidden;
+  border: 1px solid rgba(38, 38, 38, 0.15);
+  font-size: 14px;
+  color: rgba(38, 38, 38, 0.6);
+}
+
+.valueContainer {
+  padding-right: 32px;
+}
+
+.singleValue {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #262626;
+}
+
+.option {
+  padding: 6px 12px;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  color: rgba(38, 38, 38, 0.6);
+}
+
+.optionSelected {
+  color: #f6b83d;
+  padding-left: 12px;
+}
+
+.option:hover {
+  color: #f6b83d;
+  padding-left: 12px;
+}
+
+.focused {
+  border: 1px solid #f6b83d;
+}
+
+.placeholder {
+  font-weight: 500;
+  color: rgba(38, 38, 38, 0.5);
+}
+
+.menuList {
+  max-height: 78px;
+  overflow-y: auto;
+}
+
+.menuList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.menuList::-webkit-scrollbar-thumb {
+  background: rgba(38, 38, 38, 0.08);
+  border-radius: 13px;
+  width: 6px;
 }
 
 .wrapper_data_icon {
   stroke-width: 1.5px;
   stroke: #262626;
   fill: none;
-}
-
-.select_icon {
-  stroke-width: 1.5px;
-  stroke: #262626;
-  fill: none;
-  transition: transform 0.2s ease;
 }
 
 .form_btns {
@@ -406,8 +470,15 @@ input:not(:placeholder-shown) {
     font-size: 16px;
   }
 
-  .wrapper_select {
-    gap: 79px;
+  .control_pet {
+    min-width: 210px;
+    padding: 0 16px;
+    min-height: 52px;
+    height: 52px;
+    font-size: 16px;
+  }
+
+  .menu {
     font-size: 16px;
   }
 
@@ -416,10 +487,6 @@ input:not(:placeholder-shown) {
     height: 20px;
   }
 
-  .select_icon {
-    width: 20px;
-    height: 20px;
-  }
   .btn_back {
     padding: 14px 67px;
     font-size: 16px;
@@ -443,5 +510,9 @@ input:not(:placeholder-shown) {
 
   .form_box_radios {
     top: 132px;
+  }
+
+  .wrapper_data_label {
+    max-height: 52px;
   }
 }

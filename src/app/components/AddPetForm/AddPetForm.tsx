@@ -2,6 +2,8 @@ import css from "./AddPetForm.module.css";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useForm } from "react-hook-form";
+import Select from "react-select";
+import { useState } from "react";
 
 interface AddPetFormData {
   title: string;
@@ -27,9 +29,29 @@ export const Schema = Yup.object().shape({
 });
 
 export function AddPetForm() {
+  const [species, setSpecies] = useState("");
+
   const { register } = useForm<AddPetFormData>({
     resolver: yupResolver(Schema),
   });
+
+  const speciesOptions = [
+    { value: "dog", label: "Dog" },
+    { value: "cat", label: "Cat" },
+    { value: "monkey", label: "Monkey" },
+    { value: "bird", label: "Bird" },
+    { value: "snake", label: "Snake" },
+    { value: "turtle", label: "Turtle" },
+    { value: "lizard", label: "Lizard" },
+    { value: "frog", label: "Frog" },
+    { value: "fish", label: "Fish" },
+    { value: "Ants", label: "Ants" },
+    { value: "bees", label: "Bees" },
+    { value: "butterfly", label: "Butterfly" },
+    { value: "spider", label: "Spider" },
+    { value: "Scorpion", label: "Scorpion" },
+  ];
+
   return (
     <div className={css.form_container}>
       <form className={css.pet_form}>
@@ -103,28 +125,30 @@ export function AddPetForm() {
               <use href="/sprite.svg#icon-calendar" />
             </svg>
           </label>
-          <label className={css.wrapper_data_label}>
-            <select
-              {...register("species")}
-              className={css.wrapper_select}
-              name="TypeOfPet"
-              defaultValue=""
-            >
-              <option value="" disabled hidden>
-                Type of pet
-              </option>
-              <option value="dog">Dog</option>
-              <option value="cat">Cat</option>
-              <option value="monkey">Monkey</option>
-              <option value="bird">Bird</option>
-              <option value="snake">Snake</option>
-              <option value="turtle">Turtle</option>
-              <option value="lizard">Lizard</option>
-            </select>
-            <svg width={18} height={18} className={css.select_icon}>
-              <use href="/sprite.svg#icon-chevron" />
-            </svg>
-          </label>
+          <div className={css.form_pet}>
+            <Select
+              unstyled
+              placeholder="Type of pet"
+              value={
+                species
+                  ? speciesOptions.find((opt) => opt.value === species)
+                  : null
+              }
+              options={speciesOptions}
+              onChange={(option) => setSpecies(option?.value ?? "")}
+              classNames={{
+                control: () => css.control_pet,
+                valueContainer: () => css.valueContainer,
+                singleValue: () => css.singleValue,
+                indicatorsContainer: () => css.indicators,
+                option: (state) =>
+                  state.isSelected ? css.optionSelected : css.option,
+                menu: () => css.menu,
+                menuList: () => css.menuList,
+                placeholder: () => css.placeholder,
+              }}
+            />
+          </div>
         </div>
         <div className={css.form_btns}>
           <button className={css.btn_submit} type="submit">
