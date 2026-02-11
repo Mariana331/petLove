@@ -3,7 +3,13 @@ import LoginForm from "../../components/LoginForm/LoginForm";
 import PetTitle from "../../components/PetTitle/PetTitle";
 import PetBlock from "../../components/PetBlock/PetBlock";
 
-function Login() {
+interface LoginProps {
+  setIsAuth: (value: boolean) => void;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Login({ setIsAuth, setUserName, setUserEmail }: LoginProps) {
   return (
     <div className={css.login}>
       <div className="container">
@@ -24,7 +30,11 @@ function Login() {
             />
           </div>
           <div className={css.login_form}>
-            <LoginForm />
+            <LoginForm
+              setIsAuth={setIsAuth}
+              setUserName={setUserName}
+              setUserEmail={setUserEmail}
+            />
           </div>
         </div>
       </div>

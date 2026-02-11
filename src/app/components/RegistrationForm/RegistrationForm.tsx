@@ -5,11 +5,24 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import Title from "../Title/Title";
+import { SignUp } from "../../services/users";
+import type { RegistrationRequest } from "../../types/users";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
+interface RegistrationFormProps {
+  setIsAuth: (value: boolean) => void;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
+}
 
 interface RegistrationFormData {
   name: string;
   email: string;
   password: string;
+  confirmPassword: string;
 }
 
 export const Schema = Yup.object().shape({
@@ -23,16 +36,26 @@ export const Schema = Yup.object().shape({
   password: Yup.string()
     .min(7, "Minimum 7 characters")
     .required("Password is required"),
+  confirmPassword: Yup.string()
+    .oneOf([Yup.ref("password")], "Passwords must match")
+    .required("Confirm your password"),
 });
 
-export function RegistrationForm() {
+export function RegistrationForm({
+  setIsAuth,
+  setUserName,
+  setUserEmail,
+}: RegistrationFormProps) {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
+    handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(Schema),
@@ -40,6 +63,25 @@ export function RegistrationForm() {
   });
 
   const isEmail = watch("email");
+
+  const onSubmit = async (data: RegistrationFormData) => {
+    try {
+      const res = await SignUp(data as RegistrationRequest);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("userName", data.name);
+      localStorage.setItem("userEmail", data.email);
+
+      setUserName(data.name);
+      setUserEmail(data.email);
+      setIsAuth(true);
+      toast.success("Registration successful!");
+      reset();
+      navigate("/profile");
+    } catch (error: unknown) {
+      const err = error as AxiosError<{ error: { message: string } }>;
+      toast.error(err.response?.data.error.message || "Something went wrong");
+    }
+  };
 
   return (
     <div className={css.form_box}>
@@ -51,7 +93,7 @@ export function RegistrationForm() {
           Thank you for your interest in our platform.
         </p>
       </div>
-      <form className={css.form}>
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.form_wrapper}>
           <input
             {...register("name")}
@@ -138,9 +180,9 @@ export function RegistrationForm() {
               )}
             </button>
             <input
-              {...register("password")}
+              {...register("confirmPassword")}
               className={css.form_input}
-              type={showPassword ? "text" : "password"}
+              type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm password"
             />
           </div>

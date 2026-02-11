@@ -2,10 +2,16 @@ import Header from "./app/components/Header/Header";
 import { Outlet } from "react-router-dom";
 // import Loader from "./app/components/Loader/Loader";
 
-function Layout() {
+interface LayoutProps {
+  isAuth: boolean;
+  userName: string;
+  onLogOut: () => void;
+}
+
+function Layout({ isAuth, userName, onLogOut }: LayoutProps) {
   return (
     <div>
-      <Header />
+      <Header isAuth={isAuth} onLogOut={onLogOut} userName={userName} />
       <Outlet />
     </div>
   );

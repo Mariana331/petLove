@@ -138,16 +138,17 @@
   align-items: center;
 }
 
-.header_user_menu:hover {
-  background: #fbe7c1;
-}
-
 .header_icon_user {
   display: block;
   fill: #f6b83d;
 }
 
+.user_text {
+  display: none;
+}
+
 .header_menu_btn {
+  display: flex;
   cursor: pointer;
   border: none;
   margin-left: 12px;
@@ -175,6 +176,17 @@
   .header_registration,
   .header_logout {
     display: flex;
+  }
+
+  .user_text {
+    display: block;
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 100%;
+    letter-spacing: -0.03em;
+    color: #262626;
+    margin-right: 16px;
+    margin-left: 8px;
   }
 
   .header_user_menu {
@@ -211,5 +223,9 @@
 
   .header_menu_btn_home {
     display: none;
+  }
+
+  .user_text {
+    font-size: 20px;
   }
 }

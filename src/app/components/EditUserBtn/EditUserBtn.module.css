@@ -1,0 +1,51 @@
+.edit_user_btn {
+  display: flex;
+  justify-content: space-between;
+}
+
+.user {
+  display: flex;
+  gap: 4px;
+  border-radius: 30px;
+  padding: 10px 14px;
+  background: #f6b83d;
+  max-width: 80px;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  color: #fff;
+  padding: 0;
+}
+
+.icon_user {
+  fill: #fff;
+  stroke-width: 2px;
+  stroke: #fff;
+}
+
+.edit_btn {
+  cursor: pointer;
+  max-height: 40px;
+  padding: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 30px;
+  background: #fff4df;
+}
+
+.edit_btn:hover {
+  background: #fbe7c1;
+}
+
+.icon_edit {
+  stroke: #f6b83d;
+  fill: none;
+}
+
+@media screen and (min-width: 768px) {
+}

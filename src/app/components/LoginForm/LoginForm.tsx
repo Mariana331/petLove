@@ -5,10 +5,21 @@ import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { Link } from "react-router-dom";
 import Title from "../Title/Title";
+import type { LoginRequest } from "../../types/users";
+import { SignIn } from "../../services/users";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 interface LoginFormData {
   email: string;
   password: string;
+}
+interface LoginFormProps {
+  setIsAuth: (value: boolean) => void;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Schema = Yup.object().shape({
@@ -23,13 +34,16 @@ export const Schema = Yup.object().shape({
     .required("Password is required"),
 });
 
-function LoginForm() {
+function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate = useNavigate();
 
   const {
     register,
+    handleSubmit,
     watch,
     setValue,
+    reset,
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: yupResolver(Schema),
@@ -37,6 +51,25 @@ function LoginForm() {
   });
 
   const isEmail = watch("email");
+
+  const onSubmit = async (data: LoginFormData) => {
+    try {
+      const res = await SignIn(data as LoginRequest);
+      localStorage.setItem("token", res.token);
+      localStorage.setItem("userName", res.name);
+      localStorage.setItem("userEmail", res.email);
+
+      setUserName(res.name);
+      setUserEmail(res.email);
+      setIsAuth(true);
+      toast.success("Login successful!");
+      reset();
+      navigate("/profile");
+    } catch (error: unknown) {
+      const err = error as AxiosError<{ error: { message: string } }>;
+      toast.error(err.response?.data.error.message || "Something went wrong");
+    }
+  };
 
   return (
     <div className={css.form_box}>
@@ -48,7 +81,7 @@ function LoginForm() {
           Welcome! Please enter your credentials to login to the platform:
         </p>
       </div>
-      <form className={css.form}>
+      <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.form_wrapper}>
           <div className={css.email_wrapper}>
             {isEmail && (

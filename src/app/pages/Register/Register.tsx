@@ -3,7 +3,13 @@ import RegistrationForm from "../../components/RegistrationForm/RegistrationForm
 import PetTitle from "../../components/PetTitle/PetTitle";
 import PetBlock from "../../components/PetBlock/PetBlock";
 
-function Register() {
+interface RegisterProps {
+  setIsAuth: (value: boolean) => void;
+  setUserName: React.Dispatch<React.SetStateAction<string>>;
+  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
+}
+
+function Register({ setIsAuth, setUserName, setUserEmail }: RegisterProps) {
   return (
     <div className={css.register}>
       <div className="container">
@@ -25,7 +31,11 @@ function Register() {
             />
           </div>
           <div className={css.register_form}>
-            <RegistrationForm />
+            <RegistrationForm
+              setIsAuth={setIsAuth}
+              setUserName={setUserName}
+              setUserEmail={setUserEmail}
+            />
           </div>
         </div>
       </div>

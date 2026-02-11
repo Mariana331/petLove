@@ -4,7 +4,13 @@ import MobileMenu from "../MobileMenu/MobileMenu";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 
-function Header() {
+interface HeaderProps {
+  isAuth: boolean;
+  userName: string;
+  onLogOut: () => void;
+}
+
+function Header({ isAuth, userName, onLogOut }: HeaderProps) {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
   const location = useLocation();
 
@@ -45,20 +51,34 @@ function Header() {
             </ul>
           </nav>
           <div className={css.header_left}>
-            <button className={css.header_login} type="button">
-              <Link to="/login">Log In</Link>
-            </button>
-            <button className={css.header_registration} type="button">
-              <Link to="/register">Registration</Link>
-            </button>
-            <button className={css.header_logout} type="button">
-              Log out
-            </button>
-            <div className={css.header_user_menu}>
-              <svg className={css.header_icon_user} width={20} height={20}>
-                <use href="/sprite.svg#icon-user" />
-              </svg>
-            </div>
+            {!isAuth ? (
+              <>
+                <Link className={css.header_login} to="/login">
+                  Log In
+                </Link>
+                <Link className={css.header_registration} to="/register">
+                  Registration
+                </Link>
+              </>
+            ) : (
+              <>
+                <button
+                  className={css.header_logout}
+                  type="button"
+                  onClick={onLogOut}
+                >
+                  Log out
+                </button>
+                <div className={css.header_user_menu}>
+                  <svg className={css.header_icon_user} width={20} height={20}>
+                    <use href="/sprite.svg#icon-user" />
+                  </svg>
+                </div>
+                <p className={css.user_text}>
+                  <Link to="/profile">{userName}</Link>
+                </p>
+              </>
+            )}
             <button
               className={css.header_menu_btn_home}
               type="button"
@@ -79,6 +99,8 @@ function Header() {
             isOpenMobileMenu={isOpenMobileMenu}
             onClose={() => setIsOpenMobileMenu(false)}
             isHome={isHome}
+            isAuth={isAuth}
+            onLogOut={onLogOut}
           />
         </div>
       </div>
