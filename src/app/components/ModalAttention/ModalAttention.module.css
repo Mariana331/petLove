@@ -1,0 +1,131 @@
+.modal_attention {
+  padding: 40px 20px;
+  border-radius: 30px;
+  background: #fff;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.btn_close {
+  position: absolute;
+  background: transparent;
+  top: 20px;
+  right: 20px;
+  border: none;
+  cursor: pointer;
+}
+
+.icon_cross {
+  stroke-width: 2px;
+  stroke: #262626;
+  fill: none;
+}
+
+.image {
+  border-radius: 100%;
+  max-width: 60px;
+  max-height: 60px;
+  margin-bottom: 20px;
+}
+
+.image_dog {
+  display: block;
+  overflow: hidden;
+}
+
+.modal_box {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.modal_title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 100%;
+  letter-spacing: -0.03em;
+  color: #f6b83d;
+  margin-bottom: 20px;
+}
+
+.modal_text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #2b2b2a;
+  margin-bottom: 24px;
+}
+
+.modal_btns {
+  display: flex;
+  justify-content: space-around;
+  gap: 8px;
+}
+
+.modal_login {
+  border-radius: 30px;
+  padding: 12px 48px;
+  max-height: 42px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #fff;
+}
+
+.modal_register {
+  border-radius: 30px;
+  padding: 12px 24px;
+  max-height: 42px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #f6b83d;
+}
+
+.modal_login:hover {
+  background: #fff4df;
+  color: #f6b83d;
+}
+
+.modal_register:hover {
+  background: #fbe7c1;
+  color: #f6b83d;
+}
+
+@media screen and (min-width: 768px) {
+  .modal_attention {
+    padding: 60px;
+  }
+
+  .image {
+    max-width: 80px;
+    max-height: 80px;
+  }
+
+  .modal_title {
+    font-size: 24px;
+  }
+
+  .modal_text {
+    margin-bottom: 28px;
+  }
+
+  .modal_login {
+    border-radius: 30px;
+    padding: 14px 48px;
+    max-height: 48px;
+  }
+
+  .modal_register {
+    padding: 14px 24px;
+    max-height: 48px;
+  }
+}

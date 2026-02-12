@@ -74,8 +74,9 @@ function Header({ isAuth, userName, onLogOut }: HeaderProps) {
                     <use href="/sprite.svg#icon-user" />
                   </svg>
                 </div>
-                <p className={css.user_text}>
-                  <Link to="/profile">{userName}</Link>
+                <p className={isHome ? css.user_text_home : css.user_text}>
+                  {userName}
+                  <Link to="/profile"></Link>
                 </p>
               </>
             )}

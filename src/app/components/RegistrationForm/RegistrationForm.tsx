@@ -59,7 +59,7 @@ export function RegistrationForm({
     formState: { errors },
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(Schema),
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
   const isEmail = watch("email");
@@ -95,12 +95,17 @@ export function RegistrationForm({
       </div>
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <div className={css.form_wrapper}>
-          <input
-            {...register("name")}
-            className={css.form_input}
-            type="text"
-            placeholder="Name"
-          />
+          <div className={css.input_name}>
+            <input
+              {...register("name")}
+              className={css.form_input}
+              type="text"
+              placeholder="Name"
+            />
+            {errors.name && (
+              <p className={css.error_text}>{errors.name.message}</p>
+            )}
+          </div>
           <div className={css.email_wrapper}>
             {isEmail && (
               <button
@@ -131,6 +136,9 @@ export function RegistrationForm({
               type="email"
               placeholder="Email"
             />
+            {errors.email && (
+              <p className={css.error_text}>{errors.email.message}</p>
+            )}
           </div>
           <div className={css.password_wrapper}>
             <button
@@ -158,6 +166,9 @@ export function RegistrationForm({
               type={showPassword ? "text" : "password"}
               placeholder="Password"
             />
+            {errors.password && (
+              <p className={css.error_text}>{errors.password.message}</p>
+            )}
           </div>
           <div className={css.password_wrapper}>
             <button
@@ -185,6 +196,9 @@ export function RegistrationForm({
               type={showConfirmPassword ? "text" : "password"}
               placeholder="Confirm password"
             />
+            {errors.confirmPassword && (
+              <p className={css.error_text}>{errors.confirmPassword.message}</p>
+            )}
           </div>
         </div>
         <div className={css.form_box_btn}>

@@ -1,39 +1,83 @@
 import css from "./AddPetForm.module.css";
 import * as Yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useForm } from "react-hook-form";
 import Select from "react-select";
+import { AddPets } from "../../services/users";
+import { AxiosError } from "axios";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import { useNavigate, Link } from "react-router-dom";
+import type { ChangeEvent } from "react";
 import { useState } from "react";
+import Flatpickr from "react-flatpickr";
+import "flatpickr/dist/flatpickr.min.css";
+import { useForm, Controller } from "react-hook-form";
 
 interface AddPetFormData {
   title: string;
   name: string;
-  imgUrl: string;
+  imgURL: string;
   species: string;
   birthday: string;
   sex: string;
 }
 
-export const Schema = Yup.object().shape({
+export const Schema = Yup.object({
   title: Yup.string().required("Title is required"),
   name: Yup.string().required("Name is required"),
-  imgUrl: Yup.string()
-    .url("Invalid URL")
-    .matches(/^[\w-]+(\.[\w-]+)*@([\w-]+\.)+[a-zA-Z]{2,7}$/)
+  imgURL: Yup.string()
+    .matches(
+      /^https?:\/\/.*\.(?:png|jpg|jpeg|gif|bmp|webp)$/,
+      "Invalid image URL",
+    )
     .required("Image URL is required"),
-  species: Yup.string().required(),
+  species: Yup.string().required("Species is required"),
   birthday: Yup.string()
-    .matches(/^\d{4}-\d{2}-\d{2}$/)
-    .required(),
-  sex: Yup.string().required(),
+    .matches(/^\d{4}-\d{2}-\d{2}$/, "Invalid date format")
+    .required("Birthday is required"),
+  sex: Yup.string().required("Sex is required"),
 });
 
 export function AddPetForm() {
-  const [species, setSpecies] = useState("");
+  const navigate = useNavigate();
 
-  const { register } = useForm<AddPetFormData>({
+  const {
+    register,
+    reset,
+    control,
+    handleSubmit,
+    setValue,
+    formState: { errors },
+  } = useForm<AddPetFormData>({
     resolver: yupResolver(Schema),
+    mode: "onSubmit",
+    defaultValues: {
+      imgURL: "",
+    },
   });
+
+  const [preview, setPreview] = useState<string | null>(null);
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0];
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    setPreview(imageUrl);
+    setValue("imgURL", imageUrl, { shouldValidate: true });
+  };
+
+  const onSubmit = async (data: AddPetFormData) => {
+    try {
+      await AddPets(data);
+
+      toast.success("AddPet successfully!");
+      reset();
+      navigate("/profile");
+    } catch (error: unknown) {
+      const err = error as AxiosError<{ error: { message: string } }>;
+      toast.error(err.response?.data.error.message || "Something went wrong");
+    }
+  };
 
   const speciesOptions = [
     { value: "dog", label: "Dog" },
@@ -54,7 +98,7 @@ export function AddPetForm() {
 
   return (
     <div className={css.form_container}>
-      <form className={css.pet_form}>
+      <form className={css.pet_form} onSubmit={handleSubmit(onSubmit)}>
         <h2 className={css.form_title}>
           Add my pet / <span className={css.form_span}>Personal details</span>
         </h2>
@@ -63,6 +107,9 @@ export function AddPetForm() {
 
           <label className={css.form_radio_first}>
             <input {...register("sex")} type="radio" value="female" />
+            {errors.sex && (
+              <p className={css.error_text_sex}>{errors.sex.message}</p>
+            )}
 
             <svg width={20} height={20} className={css.radio_icon_first}>
               <use href="/sprite.svg#icon-female" />
@@ -83,21 +130,34 @@ export function AddPetForm() {
             </svg>
           </label>
         </fieldset>
-        <div className={css.form_image}>
-          <svg width={34} height={34} className={css.image_icon}>
-            <use href="/sprite.svg#icon-cat-footprint" />
-          </svg>
-        </div>
+        {preview ? (
+          <img src={preview} alt="Preview" className={css.img_url} />
+        ) : (
+          <div className={css.form_image}>
+            <svg width={34} height={34} className={css.image_icon}>
+              <use href="/sprite.svg#icon-cat-footprint" />
+            </svg>
+          </div>
+        )}
         <div className={css.wrapper_url}>
           <input
-            {...register("imgUrl")}
+            {...register("imgURL")}
             type="url"
             placeholder="Enter URL"
             className={css.wrapper_url_input}
+            defaultValue=""
           />
+          {errors.imgURL && (
+            <p className={css.error_text}>{errors.imgURL.message}</p>
+          )}
           <label className={css.wrapper_label}>
             Upload photo
-            <input type="file" accept="image/*" hidden />
+            <input
+              type="file"
+              accept="image/*"
+              hidden
+              onChange={handleChange}
+            />
             <svg width={18} height={18} className={css.wrapper_url_icon}>
               <use href="/sprite.svg#icon-cloud" />
             </svg>
@@ -110,43 +170,56 @@ export function AddPetForm() {
             placeholder="Title"
             className={css.wrapper_form_input}
           />
+
           <input
             {...register("name")}
             type="name"
             placeholder="Pet’s Name"
             className={css.wrapper_form_input}
+            defaultValue=""
           />
         </div>
         <div className={css.wrapper_data_type}>
-          <label className={css.wrapper_data_label}>
-            00.00.0000
-            <input type="date" hidden {...register("birthday")} />
-            <svg width={15} height={15} className={css.wrapper_data_icon}>
-              <use href="/sprite.svg#icon-calendar" />
-            </svg>
-          </label>
+          <Controller
+            name="birthday"
+            control={control}
+            render={({ field }) => (
+              <Flatpickr
+                {...field}
+                options={{ dateFormat: "d.m.Y" }}
+                className={css.inputDate}
+                placeholder="00.00.0000"
+              />
+            )}
+          />
           <div className={css.form_pet}>
-            <Select
-              unstyled
-              placeholder="Type of pet"
-              value={
-                species
-                  ? speciesOptions.find((opt) => opt.value === species)
-                  : null
-              }
-              options={speciesOptions}
-              onChange={(option) => setSpecies(option?.value ?? "")}
-              classNames={{
-                control: () => css.control_pet,
-                valueContainer: () => css.valueContainer,
-                singleValue: () => css.singleValue,
-                indicatorsContainer: () => css.indicators,
-                option: (state) =>
-                  state.isSelected ? css.optionSelected : css.option,
-                menu: () => css.menu,
-                menuList: () => css.menuList,
-                placeholder: () => css.placeholder,
-              }}
+            <Controller
+              name="species"
+              control={control}
+              render={({ field }) => (
+                <Select
+                  {...field}
+                  unstyled
+                  placeholder="Type of pet"
+                  options={speciesOptions}
+                  value={
+                    speciesOptions.find((opt) => opt.value === field.value) ||
+                    null
+                  }
+                  onChange={(selected) => field.onChange(selected?.value)}
+                  classNames={{
+                    control: () => css.control_pet,
+                    valueContainer: () => css.valueContainer,
+                    singleValue: () => css.singleValue,
+                    indicatorsContainer: () => css.indicators,
+                    option: (state) =>
+                      state.isSelected ? css.optionSelected : css.option,
+                    menu: () => css.menu,
+                    menuList: () => css.menuList,
+                    placeholder: () => css.placeholder,
+                  }}
+                />
+              )}
             />
           </div>
         </div>
@@ -154,9 +227,9 @@ export function AddPetForm() {
           <button className={css.btn_submit} type="submit">
             Submit
           </button>
-          <button className={css.btn_back} type="button">
+          <Link to="/profile" className={css.btn_back} type="button">
             Back
-          </button>
+          </Link>
         </div>
       </form>
     </div>

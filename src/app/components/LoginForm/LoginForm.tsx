@@ -47,7 +47,7 @@ function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: yupResolver(Schema),
-    mode: "onChange",
+    mode: "onSubmit",
   });
 
   const isEmail = watch("email");
@@ -113,6 +113,9 @@ function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
               type="email"
               placeholder="Email"
             />
+            {errors.email && (
+              <p className={css.error_text}>{errors.email.message}</p>
+            )}
           </div>
           <div className={css.password_wrapper}>
             <button
@@ -140,6 +143,9 @@ function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
               type={showPassword ? "text" : "password"}
               placeholder="Password"
             />
+            {errors.password && (
+              <p className={css.error_text}>{errors.password.message}</p>
+            )}
           </div>
         </div>
         <div className={css.form_box_btn}>

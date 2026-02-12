@@ -54,7 +54,7 @@ function UserBlock({ userName, userEmail }: UserBlockProps) {
           />
           <input
             className={css.form_input_tel}
-            type="number"
+            type="text"
             placeholder="+380"
           />
         </form>
