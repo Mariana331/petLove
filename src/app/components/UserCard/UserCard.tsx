@@ -1,17 +1,29 @@
 import css from "./UserCard.module.css";
 import UserBlock from "../UserBlock/UserBlock";
 import PetsBlock from "../PetsBlock/PetsBlock";
+import LogOutBtn from "../LogOutBtn/LogOutBtn";
+import type { User } from "../../types/users";
 
 interface UserCardProps {
-  userName: string;
-  userEmail: string;
+  user: User;
+  openEditUserModal: () => void;
+  openApproveModal: () => void;
+  onDelete: (id: string) => void;
 }
 
-function UserCard({ userName, userEmail }: UserCardProps) {
+function UserCard({
+  user,
+  openEditUserModal,
+  openApproveModal,
+  onDelete,
+}: UserCardProps) {
   return (
     <div className={css.user_card}>
-      <UserBlock userName={userName} userEmail={userEmail} />
-      <PetsBlock />
+      <UserBlock user={user} openEditUserModal={openEditUserModal} />
+      <PetsBlock user={user} onDelete={onDelete} />
+      <div className={css.btn_logout}>
+        <LogOutBtn openApproveModal={openApproveModal} />
+      </div>
     </div>
   );
 }

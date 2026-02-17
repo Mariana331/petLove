@@ -29,10 +29,6 @@
   margin-bottom: 24px;
 }
 
-.input_name {
-  position: relative;
-}
-
 .email_wrapper {
   position: relative;
 }
@@ -44,14 +40,7 @@
   border: none;
   cursor: pointer;
   display: block;
-}
-
-.error_text {
-  position: absolute;
-  bottom: -10px;
-  left: 0;
-  font-size: 10px;
-  color: #ef5050;
+  z-index: 2;
 }
 
 .input_error {
@@ -74,12 +63,19 @@
   fill: none;
 }
 
+.error_text {
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  font-size: 10px;
+  color: #ef5050;
+}
+
 .form_input {
   border: 1px solid rgba(38, 38, 38, 0.15);
   border-radius: 30px;
   padding: 12px;
   width: 100%;
-  position: relative;
 }
 
 .input::placeholder {
@@ -102,6 +98,7 @@
   cursor: pointer;
   background-color: transparent;
   display: block;
+  z-index: 2;
 }
 
 .password_eye_icon,

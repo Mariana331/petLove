@@ -1,7 +1,14 @@
 import css from "./PetsBlock.module.css";
 import { Link } from "react-router-dom";
+import PetsList from "../PetsList/PetsList";
+import type { User } from "../../types/users";
 
-function PetsBlock() {
+interface PetsBlockProps {
+  user: User;
+  onDelete: (id: string) => void;
+}
+
+function PetsBlock({ user, onDelete }: PetsBlockProps) {
   return (
     <div className={css.pets_block}>
       <div className={css.box_btn}>
@@ -13,6 +20,7 @@ function PetsBlock() {
           </svg>
         </Link>
       </div>
+      <PetsList user={user} onDelete={onDelete} />
     </div>
   );
 }

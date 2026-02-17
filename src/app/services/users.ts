@@ -3,6 +3,7 @@ import type {
   RegistrationRequest,
   LoginRequest,
   AddPetsRequest,
+  EditUserCurrentRequest,
 } from "../types/users";
 
 const URL = "https://petlove.b.goit.study/api";
@@ -25,20 +26,81 @@ export async function SignIn(data: LoginRequest) {
 }
 
 export async function SignOut() {
-  await axios.post(`${URL}/users/signout`);
-  localStorage.removeItem("userName");
-  localStorage.removeItem("token");
-  localStorage.removeItem("userEmail");
+  return axios.post(`${URL}/users/signout`);
+}
+
+export async function GetUserCurrent() {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User is not logged in");
+  const res = await axios.get(`${URL}/users/current`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+  return res.data;
+}
+
+export async function GetUserFull() {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User is not logged in");
+  const res = await axios.get(`${URL}/users/current/full`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return res.data;
+}
+
+export async function EditUserCurrent(data: EditUserCurrentRequest) {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User is not logged in");
+  const res = await axios.patch(
+    `${URL}/users/current/edit`,
+    {
+      name: data.name,
+      email: data.email,
+      phone: data.phone,
+      avatar: data.avatar,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return res.data;
 }
 
 export async function AddPets(data: AddPetsRequest) {
-  const res = await axios.post(`${URL}/users/current/pet/edd`, {
-    title: data.title,
-    name: data.name,
-    imgURL: data.imgURL,
-    species: data.species,
-    birthday: data.birthday,
-    sex: data.sex,
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User is not logged in");
+  const res = await axios.post(
+    `${URL}/users/current/pet/edd`,
+    {
+      title: data.title,
+      name: data.name,
+      imgURL: data.imgURL,
+      species: data.species,
+      birthday: data.birthday,
+      sex: data.sex,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
+  return res.data;
+}
+
+export async function DeletePets(id: string) {
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User is not logged in");
+  const res = await axios.delete(`${URL}/users/current/pets/remove/${id}`, {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
   });
   return res.data;
 }

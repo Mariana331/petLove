@@ -4,13 +4,25 @@ import type { Notice } from "../../types/notices";
 
 interface NoticesListProps {
   results: Notice[];
+  handleLearnMore: (notice: Notice) => void;
+  toggleFavorite: (notice: Notice) => void;
 }
 
-function NoticesList({ results }: NoticesListProps) {
+function NoticesList({
+  results,
+  handleLearnMore,
+  toggleFavorite,
+}: NoticesListProps) {
   return (
     <div className={css.notice_list}>
       {results.map((notice) => (
-        <NoticeItem key={notice._id} notice={notice} />
+        <NoticeItem
+          key={notice._id}
+          notice={notice}
+          handleLearnMore={handleLearnMore}
+          showHeart={true}
+          toggleFavorite={toggleFavorite}
+        />
       ))}
     </div>
   );

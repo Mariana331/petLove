@@ -15,8 +15,8 @@
 .modal {
   background-color: #ffffff;
   border-radius: 30px;
-  max-width: 565px;
-  width: 100%;
+  max-width: 335px;
+  width: auto;
   max-height: 90vh;
   overflow-y: auto;
   position: relative;
@@ -24,4 +24,10 @@
   z-index: 9999;
   pointer-events: auto;
   box-sizing: border-box;
+}
+
+@media screen and (min-width: 768px) {
+  .modal {
+    max-width: 600px;
+  }
 }

@@ -2,13 +2,14 @@ import css from "./UserBlock.module.css";
 import EditUserBtn from "../EditUserBtn/EditUserBtn";
 import { useState } from "react";
 import type { ChangeEvent } from "react";
+import type { User } from "../../types/users";
 
 interface UserBlockProps {
-  userName: string;
-  userEmail: string;
+  user: User;
+  openEditUserModal: () => void;
 }
 
-function UserBlock({ userName, userEmail }: UserBlockProps) {
+function UserBlock({ user, openEditUserModal }: UserBlockProps) {
   const [preview, setPreview] = useState<string | null>(null);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -20,7 +21,7 @@ function UserBlock({ userName, userEmail }: UserBlockProps) {
   };
   return (
     <div className={css.user_block}>
-      <EditUserBtn />
+      <EditUserBtn openEditUserModal={openEditUserModal} />
       <div className={css.wrapper}>
         <label className={css.uploadBox}>
           {preview ? (
@@ -45,12 +46,12 @@ function UserBlock({ userName, userEmail }: UserBlockProps) {
           <input
             className={css.form_input}
             type="text"
-            defaultValue={userName}
+            defaultValue={user.name}
           />
           <input
             className={css.form_input}
             type="email"
-            defaultValue={userEmail}
+            defaultValue={user.email}
           />
           <input
             className={css.form_input_tel}

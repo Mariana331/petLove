@@ -69,15 +69,17 @@ function Header({ isAuth, userName, onLogOut }: HeaderProps) {
                 >
                   Log out
                 </button>
-                <div className={css.header_user_menu}>
+                <Link to="/profile" className={css.header_user_menu}>
                   <svg className={css.header_icon_user} width={20} height={20}>
                     <use href="/sprite.svg#icon-user" />
                   </svg>
-                </div>
-                <p className={isHome ? css.user_text_home : css.user_text}>
+                </Link>
+                <Link
+                  className={isHome ? css.user_text_home : css.user_text}
+                  to="/profile"
+                >
                   {userName}
-                  <Link to="/profile"></Link>
-                </p>
+                </Link>
               </>
             )}
             <button

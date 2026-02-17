@@ -111,6 +111,7 @@
 .header_logout,
 .header_login {
   background: #f6b83d;
+  border: 1px solid rgba(255, 255, 255, 0.4);
   border-radius: 30px;
   padding: 15px 35px;
   font-weight: 700;

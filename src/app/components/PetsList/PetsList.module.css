@@ -1,0 +1,6 @@
+.pets_list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: #fff;
+}

@@ -1,0 +1,136 @@
+.my_notices {
+  padding-bottom: 56px;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs {
+  display: flex;
+  justify-content: start;
+  gap: 10px;
+  max-height: 42px;
+  margin-bottom: 20px;
+}
+
+.favorites,
+.viewed {
+  cursor: pointer;
+  background: #fff;
+  border-radius: 30px;
+  padding: 12px 39px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #262626;
+  width: 123px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.active {
+  cursor: pointer;
+  background: #f6b83d;
+  border-radius: 30px;
+  padding: 12px 39px;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #fff;
+  width: 123px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.viewed:active,
+.favorites:hover,
+.viewed:hover {
+  color: #fff;
+  background: #f6b83d;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+}
+
+.favorite_text {
+  padding-top: 60px;
+}
+
+.text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.02em;
+  text-align: center;
+  color: #262626;
+  text-align: center;
+}
+
+.span {
+  font-weight: 700;
+  color: #f6b83d;
+}
+
+@media screen and (min-width: 768px) {
+  .my_notices {
+    padding-bottom: 60px;
+    padding-top: 40px;
+  }
+
+  .tabs {
+    max-height: 48px;
+    margin-bottom: 38px;
+  }
+
+  .favorites,
+  .viewed {
+    padding: 14px;
+    width: 142px;
+  }
+
+  .list {
+    flex-direction: row;
+    flex-wrap: wrap;
+    row-gap: 20px;
+    column-gap: 20px;
+    justify-content: flex-start;
+    align-items: stretch;
+  }
+
+  .favorite_text {
+    padding-top: 160px;
+    padding-bottom: 122px;
+  }
+
+  .text {
+    font-size: 16px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .my_notices {
+    max-width: 664px;
+    width: 100%;
+  }
+
+  .list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+    justify-items: center;
+  }
+
+  .favorite_text {
+    max-width: 458px;
+    margin: 0 auto;
+  }
+}

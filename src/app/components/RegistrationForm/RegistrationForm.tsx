@@ -11,12 +11,7 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
-
-interface RegistrationFormProps {
-  setIsAuth: (value: boolean) => void;
-  setUserName: React.Dispatch<React.SetStateAction<string>>;
-  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
-}
+import { useAuthStore } from "../../stores/authStore";
 
 interface RegistrationFormData {
   name: string;
@@ -41,14 +36,11 @@ export const Schema = Yup.object().shape({
     .required("Confirm your password"),
 });
 
-export function RegistrationForm({
-  setIsAuth,
-  setUserName,
-  setUserEmail,
-}: RegistrationFormProps) {
+export function RegistrationForm() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuthStore();
 
   const {
     register,
@@ -67,13 +59,7 @@ export function RegistrationForm({
   const onSubmit = async (data: RegistrationFormData) => {
     try {
       const res = await SignUp(data as RegistrationRequest);
-      localStorage.setItem("token", res.token);
-      localStorage.setItem("userName", data.name);
-      localStorage.setItem("userEmail", data.email);
-
-      setUserName(data.name);
-      setUserEmail(data.email);
-      setIsAuth(true);
+      login(res.name, res.token);
       toast.success("Registration successful!");
       reset();
       navigate("/profile");

@@ -11,15 +11,11 @@ import { AxiosError } from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useNavigate } from "react-router-dom";
+import { useAuthStore } from "../../stores/authStore";
 
 interface LoginFormData {
   email: string;
   password: string;
-}
-interface LoginFormProps {
-  setIsAuth: (value: boolean) => void;
-  setUserName: React.Dispatch<React.SetStateAction<string>>;
-  setUserEmail: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const Schema = Yup.object().shape({
@@ -34,9 +30,11 @@ export const Schema = Yup.object().shape({
     .required("Password is required"),
 });
 
-function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
+function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
   const navigate = useNavigate();
+
+  const { login } = useAuthStore();
 
   const {
     register,
@@ -47,7 +45,7 @@ function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
     formState: { errors },
   } = useForm<LoginFormData>({
     resolver: yupResolver(Schema),
-    mode: "onSubmit",
+    mode: "onChange",
   });
 
   const isEmail = watch("email");
@@ -55,13 +53,8 @@ function LoginForm({ setIsAuth, setUserName, setUserEmail }: LoginFormProps) {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const res = await SignIn(data as LoginRequest);
-      localStorage.setItem("token", res.token);
-      localStorage.setItem("userName", res.name);
-      localStorage.setItem("userEmail", res.email);
+      login(res.name, res.token);
 
-      setUserName(res.name);
-      setUserEmail(res.email);
-      setIsAuth(true);
       toast.success("Login successful!");
       reset();
       navigate("/profile");

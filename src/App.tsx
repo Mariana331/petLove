@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useNavigate } from "react-router-dom";
 import Main from "./app/pages/Main/Main";
 import Home from "./app/pages/Home/Home";
 import News from "./app/pages/News/News";
@@ -11,25 +11,33 @@ import AddPet from "./app/pages/AddPet/AddPet";
 import Profile from "./app/pages/Profile/Profile";
 import Layout from "./Layout";
 import { SignOut } from "./app/services/users";
-
 import { ToastContainer } from "react-toastify";
-import { useState } from "react";
+import { useAuthStore } from "./app/stores/authStore";
+import { useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 function App() {
-  const [isAuth, setIsAuth] = useState<boolean>(!localStorage.getItem("token"));
-  const [userName, setUserName] = useState<string>(
-    localStorage.getItem("userName") || "",
-  );
+  const isAuth = useAuthStore((state) => state.isAuth);
+  const userName = useAuthStore((state) => state.userName);
+  const logoutStore = useAuthStore((state) => state.logout);
+  const initAuth = useAuthStore((state) => state.initAuth);
 
-  const [userEmail, setUserEmail] = useState<string>(
-    localStorage.getItem("userEmail") || "",
-  );
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    SignOut();
-    setIsAuth(false);
-    setUserName("");
-    setUserEmail("");
+  useEffect(() => {
+    initAuth();
+  }, [initAuth]);
+
+  const handleLogout = async () => {
+    try {
+      await SignOut();
+    } catch {
+      toast.error("You were logged out anyway.");
+    } finally {
+      logoutStore();
+      navigate("/home");
+    }
   };
 
   return (
@@ -40,7 +48,6 @@ function App() {
         <Route path="/" element={<Main />} />
 
         <Route
-          path="/"
           element={
             <Layout
               isAuth={isAuth}
@@ -51,33 +58,15 @@ function App() {
         >
           <Route path="home" element={<Home />} />
           <Route path="news" element={<News />} />
-          <Route path="notices" element={<Notices />} />
+          <Route path="notices" element={<Notices isAuth={isAuth} />} />
           <Route path="friends" element={<Friends />} />
-          <Route
-            path="register"
-            element={
-              <Register
-                setIsAuth={setIsAuth}
-                setUserName={setUserName}
-                setUserEmail={setUserEmail}
-              />
-            }
-          />
-          <Route
-            path="login"
-            element={
-              <Login
-                setIsAuth={setIsAuth}
-                setUserName={setUserName}
-                setUserEmail={setUserEmail}
-              />
-            }
-          />
+          <Route path="register" element={<Register />} />
+          <Route path="login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
           <Route path="/add-pet" element={<AddPet />} />
           <Route
             path="/profile"
-            element={<Profile userName={userName} userEmail={userEmail} />}
+            element={<Profile onLogOut={handleLogout} />}
           />
         </Route>
       </Routes>

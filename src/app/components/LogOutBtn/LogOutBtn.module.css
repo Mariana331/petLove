@@ -1,0 +1,31 @@
+.btn {
+  border-radius: 30px;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #f6b83d;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background: #fff4df;
+  width: 114px;
+  max-height: 42px;
+}
+
+.btn:hover {
+  background: #fff4df;
+  color: #f6b83d;
+}
+
+@media screen and (min-width: 768px) {
+  .btn {
+    padding: 15px;
+    max-height: 50px;
+    width: 136px;
+    font-size: 16px;
+  }
+}

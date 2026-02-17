@@ -1,9 +1,33 @@
 export type User = {
+  _id: string;
   name: string;
   email: string;
-  password: string;
+  avatar: string;
+  phone: string;
   token: string;
+  noticesViewed: [];
+  noticesFavorite: [];
+  pets: [];
 };
+
+export type Pet = {
+  _id: string;
+  name: string;
+  title: string;
+  imgURL: string;
+  species: string;
+  birthday: string;
+  sex: string;
+  createdAt: string;
+  updatedAt: string;
+};
+
+export interface EditUserCurrentRequest {
+  name?: string;
+  email?: string;
+  phone?: string;
+  avatar?: string;
+}
 
 export interface RegistrationRequest {
   name: string;

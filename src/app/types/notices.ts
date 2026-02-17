@@ -14,4 +14,5 @@ export type Notice = {
   user: string;
   popularity: number;
   updatedAt: string;
+  favorites: boolean;
 };
