@@ -107,7 +107,7 @@ function ModalEditUser({ onClose, user }: ModalEditUserProps) {
     mutationFn: (data) => EditUserCurrent(data),
     onSuccess: () => {
       toast.success("User updated successfully");
-      queryClient.invalidateQueries({ queryKey: ["fullUser"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
       onClose();
     },
     onError: (error) => {

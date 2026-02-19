@@ -39,6 +39,7 @@ function UserBlock({ user, openEditUserModal }: UserBlockProps) {
             className={css.form_input_tel}
             type="text"
             placeholder="+380"
+            disabled
           />
         </div>
       </div>

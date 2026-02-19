@@ -106,6 +106,7 @@
 @media screen and (min-width: 768px) {
   .modal_attention {
     padding: 60px;
+    width: 466px;
   }
 
   .modal_title {
@@ -114,6 +115,10 @@
 
   .modal_text {
     margin-bottom: 28px;
+  }
+
+  .modal_btns {
+    padding: 0 29px;
   }
 
   .modal_login {
