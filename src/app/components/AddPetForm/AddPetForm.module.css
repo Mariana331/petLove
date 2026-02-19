@@ -195,6 +195,12 @@
   color: #ef5050;
 }
 
+.error_title {
+  position: absolute;
+  font-size: 10px;
+  color: #ef5050;
+}
+
 input:focus {
   outline: none;
   border: 1px solid #f6b83d;
@@ -226,6 +232,7 @@ input:not(:placeholder-shown) {
   color: #262626;
   display: flex;
   align-items: center;
+  justify-content: center;
   max-width: 146px;
   width: 100%;
   gap: 8px;

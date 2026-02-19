@@ -8,6 +8,7 @@ interface PetsItemProps {
 
 function PetsItem({ pet, onDelete }: PetsItemProps) {
   const date = new Date(pet.birthday).toLocaleDateString("uk-UA");
+
   return (
     <div className={css.pets_item}>
       <button

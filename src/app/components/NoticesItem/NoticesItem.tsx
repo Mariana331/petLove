@@ -73,7 +73,7 @@ function NoticeItem({
         </div>
         <div className={css.notice_price}>
           <p className={css.price}>${notice.price ? notice.price : "0.00"}</p>
-          <div className={isProfile ? css.notice_btn_profile : css.notice_btn}>
+          <div className={css.notice_btn}>
             <button
               className={css.more_btn}
               type="button"

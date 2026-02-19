@@ -62,7 +62,7 @@ function Profile({ onLogOut }: ProfileProps) {
             viewedNotices={user?.noticesViewed || []}
           />
           {isOpen && (
-            <Modal onClose={() => closeModal}>
+            <Modal onClose={closeModal}>
               {type === "editUser" && (
                 <ModalEditUser onClose={closeModal} user={user} />
               )}

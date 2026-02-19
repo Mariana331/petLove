@@ -31,6 +31,26 @@ function ModalNotice({ notice, onClose, toggleFavorite }: ModalNoticeProps) {
               <use href="/sprite.svg#icon-star" />
             </svg>
           </li>
+          <li className={css.star_icon}>
+            <svg className={css.icon_star} width={16} height={16}>
+              <use href="/sprite.svg#icon-star" />
+            </svg>
+          </li>
+          <li className={css.star_icon}>
+            <svg className={css.icon_star} width={16} height={16}>
+              <use href="/sprite.svg#icon-star" />
+            </svg>
+          </li>
+          <li className={css.star_icon}>
+            <svg className={css.icon_star} width={16} height={16}>
+              <use href="/sprite.svg#icon-star" />
+            </svg>
+          </li>
+          <li className={css.star_icon}>
+            <svg className={css.icon_star} width={16} height={16}>
+              <use href="/sprite.svg#icon-star" />
+            </svg>
+          </li>
           <li className={css.item_popularity}>{notice.popularity}</li>
         </ul>
       </div>
@@ -81,9 +101,15 @@ function ModalNotice({ notice, onClose, toggleFavorite }: ModalNoticeProps) {
               </svg>
             </button>
           </div>
-          <button className={css.contact_button} type="button">
+          <a
+            className={css.contact_button}
+            href={`/profile/${notice.user}`}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {" "}
             Contact
-          </button>
+          </a>
         </div>
       </div>
     </div>

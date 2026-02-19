@@ -130,13 +130,12 @@
 
 .notice_btn_profile {
   display: flex;
-  max-height: 46px;
   gap: 10px;
 }
 
 .more_btn {
   border-radius: 30px;
-  padding: 14px 80px;
+  padding: 14px;
   background: #f6b83d;
   cursor: pointer;
   font-weight: 500;
@@ -144,8 +143,9 @@
   line-height: 129%;
   letter-spacing: -0.03em;
   color: #fff;
-  max-width: 100%;
-  display: flex;
+  width: 100%;
+  white-space: nowrap;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
 }
@@ -210,12 +210,8 @@
     font-size: 18px;
   }
 
-  .notice_btn_profile {
-    max-height: 44px;
-  }
-
   .more_btn {
-    padding: 14px 78px;
+    padding: 14px;
     font-size: 16px;
   }
 
@@ -250,6 +246,6 @@
   }
 
   .more_btn {
-    padding: 14px 78px;
+    padding: 14px;
   }
 }

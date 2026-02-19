@@ -64,7 +64,7 @@
   text-overflow: ellipsis;
 }
 
-.friend_item:hover {
+.span_text:hover {
   color: #f6b83d;
 }
 

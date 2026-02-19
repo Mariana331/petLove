@@ -76,7 +76,7 @@ export async function AddPets(data: AddPetsRequest) {
   const token = localStorage.getItem("token");
   if (!token) throw new Error("User is not logged in");
   const res = await axios.post(
-    `${URL}/users/current/pet/edd`,
+    `${URL}/users/current/pets/add`,
     {
       title: data.title,
       name: data.name,

@@ -173,21 +173,6 @@
   color: #f6b83d;
 }
 
-.add_btn:hover,
-.add_btn:active {
-  background: #fff4df;
-  color: #f6b83d;
-}
-
-.icon_heart:hover {
-  stroke: #f6b83d;
-}
-
-.contact_button:hover {
-  background: #fbe7c1;
-  color: #f6b83d;
-}
-
 @media screen and (min-width: 768px) {
   .modal_notice {
     padding: 40px 72px;

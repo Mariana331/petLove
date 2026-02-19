@@ -2,25 +2,40 @@ import css from "./NoticesFilters.module.css";
 import SearchField from "../SearchField/SearchField";
 import LocationField from "../LocationField/LocationField";
 import Select from "react-select";
-import { useState } from "react";
 
 interface NoticesFilterProps {
   keyword: string;
-  location: string;
+  category: string;
+  locationId: string;
+  species: string;
+  sex: string;
+  byPopularity: boolean | null;
+  byPrice: boolean | null;
   onSubmitKeyword: (value: string) => void;
   onSubmitLocation: (value: string) => void;
+  onSubmitCategory: (value: string) => void;
+  onSubmitSpecies: (value: string) => void;
+  onSubmitSex: (value: string) => void;
+  onSubmitByPopularity: (value: boolean | null) => void;
+  onSubmitByPrice: (value: boolean | null) => void;
 }
 
 function NoticesFilter({
   keyword,
-  location,
+  locationId,
+  category,
+  species,
+  sex,
+  byPopularity,
+  byPrice,
   onSubmitKeyword,
   onSubmitLocation,
+  onSubmitCategory,
+  onSubmitSpecies,
+  onSubmitSex,
+  onSubmitByPopularity,
+  onSubmitByPrice,
 }: NoticesFilterProps) {
-  const [category, setCategory] = useState("");
-  const [gender, setGender] = useState("");
-  const [type, setType] = useState("");
-
   const categoryOptions = [
     { value: "", label: "Show all" },
     { value: "sell", label: "Sell" },
@@ -73,7 +88,7 @@ function NoticesFilter({
                   : null
               }
               options={categoryOptions}
-              onChange={(option) => setCategory(option?.value ?? "")}
+              onChange={(option) => onSubmitCategory(option?.value ?? "")}
               classNames={{
                 control: () => css.control_category,
                 valueContainer: () => css.valueContainer,
@@ -92,12 +107,10 @@ function NoticesFilter({
               unstyled
               placeholder="Gender"
               value={
-                gender
-                  ? genderOptions.find((opt) => opt.value === gender)
-                  : null
+                sex ? genderOptions.find((opt) => opt.value === sex) : null
               }
               options={genderOptions}
-              onChange={(option) => setGender(option?.value ?? "")}
+              onChange={(option) => onSubmitSex(option?.value ?? "")}
               classNames={{
                 control: () => css.control_category,
                 valueContainer: () => css.valueContainer,
@@ -115,9 +128,11 @@ function NoticesFilter({
           <Select
             unstyled
             placeholder="By type"
-            value={type ? typeOptions.find((opt) => opt.value === type) : null}
+            value={
+              species ? typeOptions.find((opt) => opt.value === species) : null
+            }
             options={typeOptions}
-            onChange={(option) => setType(option?.value ?? "")}
+            onChange={(option) => onSubmitSpecies(option?.value ?? "")}
             classNames={{
               control: () => css.control_category,
               valueContainer: () => css.valueContainer,
@@ -131,127 +146,168 @@ function NoticesFilter({
         </div>
 
         <div className={css.form_location}>
-          <LocationField value={location} onSubmit={onSubmitLocation} />
+          <LocationField value={locationId} onSubmit={onSubmitLocation} />
         </div>
       </div>
       <div className={css.form_radio}>
-        <label className={css.radio_btn}>
+        <label
+          className={`${css.radio_btn} ${byPopularity === false ? css.checked : ""}`}
+        >
           <input
             type="radio"
-            name="gender"
+            name="type"
             value="popular"
-            // checked={value === "popular"}
-            // onChange={() => onChange("popular")}
+            checked={byPopularity === false}
+            onChange={() => onSubmitByPopularity(false)}
           />
           Popular
-          <svg
-            onClick={(e) => {
-              e.stopPropagation();
-              // onChange("");
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={css.close_icon}
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          {byPopularity !== null && (
+            <button
+              className={css.btn_close}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onSubmitByPopularity(null);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={css.close_icon}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
         </label>
 
-        <label className={css.radio_btn}>
+        <label
+          className={`${css.radio_btn} ${byPopularity === true ? css.checked : ""}`}
+        >
           <input
             type="radio"
-            name="gender"
+            name="type"
             value="unpopular"
-            // checked={value === "unpopular"}
-            // onChange={() => onChange("unpopular")}
+            checked={byPopularity === true}
+            onChange={() => onSubmitByPopularity(true)}
           />
           Unpopular
-          <svg
-            onClick={(e) => {
-              e.stopPropagation();
-              // onChange("");
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={css.close_icon}
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          {byPopularity !== null && (
+            <button
+              className={css.btn_close}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onSubmitByPopularity(null);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={css.close_icon}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
         </label>
 
-        <label className={css.radio_btn}>
+        <label
+          className={`${css.radio_btn} ${byPrice === true ? css.checked : ""}`}
+        >
           <input
             type="radio"
-            name="gender"
-            value="female"
-            // checked={value === "cheap"}
-            // onChange={() => onChange("cheap")}
+            name="type"
+            value="cheap"
+            checked={byPrice === true}
+            onChange={() => onSubmitByPrice(true)}
           />
           Cheap
-          <svg
-            onClick={(e) => {
-              e.stopPropagation();
-              // onChange("");
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={css.close_icon}
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          {byPrice !== null && (
+            <button
+              className={css.btn_close}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onSubmitByPrice(null);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={css.close_icon}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
         </label>
-        <label className={css.radio_btn}>
+
+        <label
+          className={`${css.radio_btn} ${byPrice === false ? css.checked : ""}`}
+        >
           <input
             type="radio"
-            name="gender"
-            value="female"
-            // checked={value === "expensive"}
-            // onChange={() => onChange("expensive")}
+            name="type"
+            value="expensive"
+            checked={byPrice === false}
+            onChange={() => onSubmitByPrice(false)}
           />
           Expensive
-          <svg
-            onClick={(e) => {
-              e.stopPropagation();
-              // onChange("");
-            }}
-            xmlns="http://www.w3.org/2000/svg"
-            width="12"
-            height="12"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            strokeWidth="3"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className={css.close_icon}
-          >
-            <line x1="18" y1="6" x2="6" y2="18" />
-            <line x1="6" y1="6" x2="18" y2="18" />
-          </svg>
+          {byPrice !== null && (
+            <button
+              className={css.btn_close}
+              type="button"
+              onClick={(e) => {
+                e.stopPropagation();
+                e.preventDefault();
+                onSubmitByPrice(null);
+              }}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className={css.close_icon}
+              >
+                <line x1="18" y1="6" x2="6" y2="18" />
+                <line x1="6" y1="6" x2="18" y2="18" />
+              </svg>
+            </button>
+          )}
         </label>
       </div>
     </div>

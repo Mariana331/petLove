@@ -1,19 +1,32 @@
 import css from "./Main.module.css";
-import { Link } from "react-router-dom";
-import Loader from "../../components/Loader/Loader";
+import { useLoaderStore } from "../../stores/loaderStore";
+import { useNavigate } from "react-router-dom";
 
 function Main() {
+  const navigate = useNavigate();
+  const start = useLoaderStore((s) => s.start);
+  const finish = useLoaderStore((s) => s.finish);
+
+  const handleClick = () => {
+    start();
+    navigate("/home");
+    finish();
+  };
+
   return (
     <div className={css.layout_wrapper}>
       <div className={css.layout_logo}>
-        <Link to="/home" aria-label="Home" className={css.layout_logo_text}>
+        <button
+          type="button"
+          className={css.layout_logo_text}
+          onClick={handleClick}
+        >
           petl
           <svg className={css.layout_logo_icon} width={36} height={31}>
             <use href="/sprite.svg#icon-heart" />
           </svg>
           ve
-        </Link>
-        {<Loader />}
+        </button>
       </div>
     </div>
   );

@@ -18,6 +18,8 @@ import ModalAttention from "../../components/ModalAttention/ModalAttention";
 import Modal from "../../components/Modal/Modal";
 import ModalNotice from "../../components/ModalNotice/ModalNotice";
 import { useModalStore } from "../../stores/modalStore";
+import { useLoaderStore } from "../../stores/loaderStore";
+import { useEffect } from "react";
 
 interface NoticesProps {
   isAuth: boolean;
@@ -26,17 +28,51 @@ interface NoticesProps {
 function Notices({ isAuth }: NoticesProps) {
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
-  const [location, setLocation] = useState("");
+  const [locationId, setLocation] = useState("");
+  const [category, setCategory] = useState("");
+  const [species, setSpecies] = useState("");
+  const [sex, setSex] = useState("");
+  const [byPopularity, setByPopularity] = useState<boolean | null>(null);
+  const [byPrice, setByPrice] = useState<boolean | null>(null);
   const limit = 6;
 
   const { isOpen, type, notice, openModal, closeModal } = useModalStore();
   const openAttentionModal = () => openModal("attention");
 
   const { data, isLoading, isError } = useQuery<NoticeResponse>({
-    queryKey: ["results", page, limit, keyword, location],
-    queryFn: () => getNotices({ page, limit, keyword, location }),
+    queryKey: [
+      "results",
+      page,
+      limit,
+      keyword,
+      category,
+      species,
+      sex,
+      locationId,
+      byPopularity,
+      byPrice,
+    ],
+    queryFn: () =>
+      getNotices({
+        page,
+        limit,
+        keyword,
+        category,
+        species,
+        sex,
+        locationId,
+        byPopularity,
+        byPrice,
+      }),
     placeholderData: keepPreviousData,
   });
+
+  const start = useLoaderStore((s) => s.start);
+  const finish = useLoaderStore((s) => s.finish);
+  useEffect(() => {
+    if (isLoading) start();
+    else finish();
+  }, [isLoading, start, finish]);
 
   const handleLearnMore = async (result: Notice) => {
     if (!isAuth) {
@@ -75,13 +111,38 @@ function Notices({ isAuth }: NoticesProps) {
           <Title title="Find your favorite pet" />
           <NoticesFilter
             keyword={keyword}
-            location={location}
+            locationId={locationId}
+            category={category}
+            species={species}
+            sex={sex}
+            byPopularity={byPopularity}
+            byPrice={byPrice}
             onSubmitKeyword={(value) => {
               setKeyword(value);
               setPage(1);
             }}
             onSubmitLocation={(value) => {
               setLocation(value);
+              setPage(1);
+            }}
+            onSubmitCategory={(value) => {
+              setCategory(value);
+              setPage(1);
+            }}
+            onSubmitSpecies={(value) => {
+              setSpecies(value);
+              setPage(1);
+            }}
+            onSubmitSex={(value) => {
+              setSex(value);
+              setPage(1);
+            }}
+            onSubmitByPopularity={(value: boolean | null) => {
+              setByPopularity(value);
+              setPage(1);
+            }}
+            onSubmitByPrice={(value: boolean | null) => {
+              setByPrice(value);
               setPage(1);
             }}
           />

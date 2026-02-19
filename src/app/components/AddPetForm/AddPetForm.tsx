@@ -38,8 +38,12 @@ export const Schema = Yup.object({
   sex: Yup.string().required("Sex is required"),
 });
 
+const CLOUDI_NAME = import.meta.env.VITE_CLOUDI_NAME;
+const UPLOAD_PRESET = import.meta.env.VITE_UPLOAD_PRESET;
+
 export function AddPetForm() {
   const navigate = useNavigate();
+  const [preview, setPreview] = useState<string | null>(null);
 
   const {
     register,
@@ -51,19 +55,34 @@ export function AddPetForm() {
   } = useForm<AddPetFormData>({
     resolver: yupResolver(Schema),
     mode: "onSubmit",
-    defaultValues: {
-      imgURL: "",
-    },
   });
 
-  const [preview, setPreview] = useState<string | null>(null);
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
-    const imageUrl = URL.createObjectURL(file);
-    setPreview(imageUrl);
-    setValue("imgURL", imageUrl, { shouldValidate: true });
+    setPreview(URL.createObjectURL(file));
+
+    try {
+      const formData = new FormData();
+      formData.append("file", file);
+      formData.append("upload_preset", UPLOAD_PRESET);
+
+      const res = await fetch(
+        `https://api.cloudinary.com/v1_1/${CLOUDI_NAME}/upload`,
+        {
+          method: "POST",
+          body: formData,
+        },
+      );
+
+      const data = await res.json();
+      setPreview(data.secure_url);
+      setValue("imgURL", data.secure_url, { shouldValidate: true });
+      toast.success("Image uploaded successfully!");
+    } catch {
+      toast.error("Failed to upload image");
+    }
   };
 
   const onSubmit = async (data: AddPetFormData) => {
@@ -130,6 +149,7 @@ export function AddPetForm() {
             </svg>
           </label>
         </fieldset>
+
         {preview ? (
           <img src={preview} alt="Preview" className={css.img_url} />
         ) : (
@@ -140,12 +160,21 @@ export function AddPetForm() {
           </div>
         )}
         <div className={css.wrapper_url}>
-          <input
-            {...register("imgURL")}
-            type="url"
-            placeholder="Enter URL"
-            className={css.wrapper_url_input}
-            defaultValue=""
+          <Controller
+            name="imgURL"
+            control={control}
+            render={({ field }) => (
+              <input
+                type="url"
+                placeholder="Enter URL"
+                className={css.wrapper_url_input}
+                value={field.value || preview || ""}
+                onChange={(e) => {
+                  field.onChange(e.target.value);
+                  setPreview(e.target.value);
+                }}
+              />
+            )}
           />
           {errors.imgURL && (
             <p className={css.error_text}>{errors.imgURL.message}</p>
@@ -163,6 +192,7 @@ export function AddPetForm() {
             </svg>
           </label>
         </div>
+
         <div className={css.wrapper_form}>
           <input
             {...register("title")}
@@ -179,16 +209,23 @@ export function AddPetForm() {
             defaultValue=""
           />
         </div>
+
         <div className={css.wrapper_data_type}>
           <Controller
             name="birthday"
             control={control}
             render={({ field }) => (
               <Flatpickr
-                {...field}
-                options={{ dateFormat: "d.m.Y" }}
+                options={{ dateFormat: "Y-m-d" }}
                 className={css.inputDate}
-                placeholder="00.00.0000"
+                placeholder="00.00.00"
+                onChange={(dates) => {
+                  const date = dates[0];
+                  if (!date) return;
+
+                  const formatted = date.toISOString().split("T")[0];
+                  field.onChange(formatted);
+                }}
               />
             )}
           />
@@ -207,6 +244,15 @@ export function AddPetForm() {
                     null
                   }
                   onChange={(selected) => field.onChange(selected?.value)}
+                  styles={{
+                    control: (base, state) => ({
+                      ...base,
+
+                      border: state.isFocused
+                        ? "1px solid #f6b83d"
+                        : "1px solid rgba(38, 38, 38, 0.15)",
+                    }),
+                  }}
                   classNames={{
                     control: () => css.control_pet,
                     valueContainer: () => css.valueContainer,

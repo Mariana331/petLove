@@ -23,10 +23,10 @@ export type Pet = {
 };
 
 export interface EditUserCurrentRequest {
-  name?: string;
-  email?: string;
-  phone?: string;
-  avatar?: string;
+  name: string;
+  email: string;
+  phone: string;
+  avatar: string;
 }
 
 export interface RegistrationRequest {

@@ -31,39 +31,43 @@ function FriendsItem({ friend }: FriendsItemProps) {
 
         <ul className={css.friends_data}>
           <li className={css.friend_item}>
-            <a
-              href={friend.addressUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Email:{" "}
-            </a>
+            Email:{" "}
             <span className={css.span_text}>
-              {friend.email ? friend.email : "website only"}
+              <a
+                href={
+                  friend.email ? `mailto:${friend.email}` : friend.addressUrl
+                }
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {friend.email ? friend.email : "website only"}
+              </a>
             </span>
           </li>
+
           <li className={css.friend_item}>
-            <a
-              href={friend.addressUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Address:{" "}
-            </a>
+            Address:{" "}
             <span className={css.span_text}>
-              {friend.address ? friend.address : "website only"}
+              <a
+                href={friend.address ? friend.addressUrl : "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {friend.address ? friend.address : "website only"}
+              </a>
             </span>
           </li>
+
           <li className={css.friend_item}>
-            <a
-              href={friend.addressUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Phone:{" "}
-            </a>
+            Phone:{" "}
             <span className={css.span_text}>
-              {friend.phone ? friend.phone : "website only"}
+              <a
+                href={friend.phone ? `tel:${friend.phone}` : friend.addressUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {friend.phone ? friend.phone : "website only"}
+              </a>
             </span>
           </li>
         </ul>

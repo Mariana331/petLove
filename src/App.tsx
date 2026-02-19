@@ -13,15 +13,15 @@ import Layout from "./Layout";
 import { SignOut } from "./app/services/users";
 import { ToastContainer } from "react-toastify";
 import { useAuthStore } from "./app/stores/authStore";
+import { useModalStore } from "./app/stores/modalStore";
 import { useEffect } from "react";
-import { toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
   const userName = useAuthStore((state) => state.userName);
   const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
+  const closeModal = useModalStore((state) => state.closeModal);
 
   const navigate = useNavigate();
 
@@ -30,14 +30,11 @@ function App() {
   }, [initAuth]);
 
   const handleLogout = async () => {
-    try {
-      await SignOut();
-    } catch {
-      toast.error("You were logged out anyway.");
-    } finally {
+    await SignOut().finally(() => {
+      closeModal();
       logoutStore();
       navigate("/home");
-    }
+    });
   };
 
   return (

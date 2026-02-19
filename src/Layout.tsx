@@ -1,5 +1,6 @@
 import Header from "./app/components/Header/Header";
 import { Outlet } from "react-router-dom";
+import Loader from "./app/components/Loader/Loader";
 
 interface LayoutProps {
   isAuth: boolean;
@@ -11,6 +12,7 @@ function Layout({ isAuth, userName, onLogOut }: LayoutProps) {
   return (
     <div>
       <Header isAuth={isAuth} onLogOut={onLogOut} userName={userName} />
+      <Loader />
       <Outlet />
     </div>
   );

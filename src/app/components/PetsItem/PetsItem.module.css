@@ -38,6 +38,9 @@
 .image {
   display: block;
   overflow: hidden;
+  border-radius: 100px;
+  width: 66px;
+  height: 66px;
 }
 
 .pet_info {
@@ -81,10 +84,22 @@
 
 @media screen and (min-width: 768px) {
   .pets_item {
-    max-width: 305px;
-    /* width: calc((100% - 14px) / 2); */
-    flex-direction: row;
-    padding: 34px 62px 34px 135px;
+    width: calc((100% - 14px) / 2);
+    padding: 22px 42px 23px 105px;
+  }
+
+  .avatar {
+    position: absolute;
+    border-radius: 100px;
+    max-width: 75px;
+    max-height: 75px;
+    top: 22px;
+    left: 16px;
+  }
+
+  .image {
+    width: 75px;
+    height: 75px;
   }
 }
 

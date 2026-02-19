@@ -8,6 +8,8 @@ import { useState } from "react";
 import { getNews } from "../../services/news";
 import NewList from "../../components/NewsList/NewsList";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
+import { useLoaderStore } from "../../stores/useLoaderStore";
+import { useEffect } from "react";
 
 function News() {
   const [page, setPage] = useState(1);
@@ -19,6 +21,14 @@ function News() {
     queryFn: () => getNews({ page, limit, keyword }),
     placeholderData: keepPreviousData,
   });
+
+  const start = useLoaderStore((s) => s.start);
+  const finish = useLoaderStore((s) => s.finish);
+  useEffect(() => {
+    if (isLoading) start();
+    else finish();
+  }, [isLoading, start, finish]);
+
   return (
     <div className={css.news}>
       <div className="container">

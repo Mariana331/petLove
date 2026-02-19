@@ -59,10 +59,21 @@
   gap: 10px;
 }
 
-.form_input {
+.wrapper_text {
+  border: 1px solid rgba(38, 38, 38, 0.15);
   border-radius: 30px;
   padding: 12px;
   max-height: 42px;
+  display: flex;
+  align-items: center;
+}
+
+.profile_text {
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  color: #262626;
 }
 
 .form_input_tel {
@@ -72,7 +83,6 @@
   max-height: 42px;
 }
 
-.form_input::placeholder,
 .form_input_tel::placeholder {
   font-weight: 500;
   font-size: 14px;
@@ -117,15 +127,18 @@
     flex-wrap: wrap;
   }
 
-  .form_input,
+  .wrapper_text,
   .form_input_tel {
-    max-width: 305px;
+    width: 305px;
     max-height: 50px;
-    padding: 16px 143px 16px 16px;
+    padding: 16px;
   }
 
-  .form_input::placeholder,
   .form_input_tel::placeholder {
+    font-size: 16px;
+  }
+
+  .profile_text {
     font-size: 16px;
   }
 }
@@ -135,9 +148,9 @@
     flex-direction: column;
   }
 
-  .form_input,
+  .wrapper_text,
   .form_input_tel {
     max-height: 52px;
-    max-width: 440px;
+    width: 440px;
   }
 }

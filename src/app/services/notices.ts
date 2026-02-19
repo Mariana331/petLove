@@ -12,17 +12,37 @@ interface GetNoticeParams {
   page: number;
   limit: number;
   keyword: string;
-  location: string;
+  category: string;
+  species: string;
+  sex: string;
+  locationId: string;
+  byPopularity: boolean | null;
+  byPrice: boolean | null;
 }
 
 export async function getNotices({
   page,
   limit,
   keyword,
-  location,
+  category,
+  species,
+  sex,
+  locationId,
+  byPopularity,
+  byPrice,
 }: GetNoticeParams): Promise<NoticeResponse> {
   const res = await axios.get<NoticeResponse>(`${URL}/notices`, {
-    params: { page, limit, keyword, location },
+    params: {
+      page,
+      limit,
+      keyword,
+      category,
+      species,
+      sex,
+      locationId,
+      byPopularity,
+      byPrice,
+    },
   });
   return res.data;
 }

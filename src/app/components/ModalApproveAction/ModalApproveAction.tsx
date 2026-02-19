@@ -22,7 +22,14 @@ function ModalApproveAction({ onClose, onLogOut }: ModalApproveActionProps) {
           <button className={css.btn_yes} type="button" onClick={onLogOut}>
             Yes
           </button>
-          <button className={css.btn_cancel} type="button" onClick={onClose}>
+          <button
+            className={css.btn_cancel}
+            type="button"
+            onClick={() => {
+              onClose();
+              onLogOut();
+            }}
+          >
             Cancel
           </button>
         </div>
