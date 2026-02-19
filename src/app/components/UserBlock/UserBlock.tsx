@@ -35,12 +35,11 @@ function UserBlock({ user, openEditUserModal }: UserBlockProps) {
             <p className={css.profile_text}> {user.email}</p>
           </div>
 
-          <input
-            className={css.form_input_tel}
-            type="text"
-            placeholder="+380"
-            disabled
-          />
+          <div className={css.wrapper_text}>
+            <p className={css.profile_text}>
+              {user.phone ? user.phone : "+380"}
+            </p>
+          </div>
         </div>
       </div>
     </div>
