@@ -2,37 +2,35 @@ import css from "./MyNotices.module.css";
 import type { Notice } from "../../types/notices";
 import NoticeItem from "../NoticesItem/NoticesItem";
 import { deleteFavorite } from "../../services/notices";
-import { useModalStore } from "../../stores/modalStore";
-import { useState } from "react";
+
+import { useState, useEffect } from "react";
 
 type Tab = "favorites" | "viewed";
 
 interface MyNoticesProps {
   favoriteNotices: Notice[];
   viewedNotices: Notice[];
-  onRemoveFavorite?: (noticeId: string) => void;
 }
 
-function MyNotices({
-  favoriteNotices,
-  viewedNotices,
-  onRemoveFavorite,
-}: MyNoticesProps) {
+function MyNotices({ favoriteNotices, viewedNotices }: MyNoticesProps) {
   const [activeTab, setActiveTab] = useState<Tab>("favorites");
+  const [favorites, setFavorites] = useState<Notice[]>(favoriteNotices);
 
-  const { openModal } = useModalStore();
+  useEffect(() => {
+    setFavorites(favoriteNotices);
+  }, [favoriteNotices]);
 
   const handleDeleteFavorite = async (notice: Notice) => {
-    await deleteFavorite(notice._id);
-    if (onRemoveFavorite) onRemoveFavorite(notice._id);
+    try {
+      await deleteFavorite(notice._id);
+
+      setFavorites((prev) => prev.filter((item) => item._id !== notice._id));
+    } catch (error) {
+      console.error(error);
+    }
   };
 
-  const handleLearnMore = (notice: Notice) => {
-    openModal("result", notice);
-  };
-
-  const noticesToRender =
-    activeTab === "favorites" ? favoriteNotices : viewedNotices;
+  const noticesToRender = activeTab === "favorites" ? favorites : viewedNotices;
 
   return (
     <div className={css.my_notices}>
@@ -57,8 +55,7 @@ function MyNotices({
           <NoticeItem
             key={notice._id}
             notice={notice}
-            handleLearnMore={handleLearnMore}
-            toggleFavorite={() => handleDeleteFavorite(notice)}
+            handleDeleteFavorite={handleDeleteFavorite}
             showTrash={activeTab === "favorites"}
           />
         ))}

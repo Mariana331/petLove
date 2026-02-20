@@ -251,6 +251,10 @@ input:not(:placeholder-shown) {
   margin-bottom: 10px;
 }
 
+.wrapper_error {
+  position: relative;
+}
+
 .wrapper_form_input:focus {
   border: 1px solid #f6b83d;
 }
@@ -259,6 +263,7 @@ input:not(:placeholder-shown) {
   border: 1px solid rgba(38, 38, 38, 0.15);
   border-radius: 30px;
   padding: 12px;
+  width: 100%;
 }
 
 .inputDate {
@@ -288,6 +293,10 @@ input:not(:placeholder-shown) {
   margin-bottom: 31px;
 }
 
+.data_box {
+  position: relative;
+}
+
 .wrapper_data_label {
   display: flex;
   align-items: center;
@@ -309,6 +318,10 @@ input:not(:placeholder-shown) {
 .wrapper_data_label,
 .control_pet {
   flex: 1;
+}
+
+.form_pet {
+  position: relative;
 }
 
 .control_pet {

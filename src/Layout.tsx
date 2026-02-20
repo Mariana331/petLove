@@ -5,13 +5,13 @@ import Loader from "./app/components/Loader/Loader";
 interface LayoutProps {
   isAuth: boolean;
   userName: string;
-  onLogOut: () => void;
+  handleLogout: () => void;
 }
 
-function Layout({ isAuth, userName, onLogOut }: LayoutProps) {
+function Layout({ isAuth, userName, handleLogout }: LayoutProps) {
   return (
     <div>
-      <Header isAuth={isAuth} onLogOut={onLogOut} userName={userName} />
+      <Header isAuth={isAuth} userName={userName} handleLogout={handleLogout} />
       <Loader />
       <Outlet />
     </div>

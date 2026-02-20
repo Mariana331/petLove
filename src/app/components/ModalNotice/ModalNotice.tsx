@@ -1,14 +1,27 @@
 import css from "./ModalNotice.module.css";
 import type { Notice } from "../../types/notices";
+import { useState } from "react";
 
 interface ModalNoticeProps {
   notice: Notice;
   onClose: () => void;
-  toggleFavorite: (notice: Notice) => void;
+  toggleFavorite?: (notice: Notice) => void;
+  isFavorite?: boolean;
 }
 
-function ModalNotice({ notice, onClose, toggleFavorite }: ModalNoticeProps) {
+function ModalNotice({
+  notice,
+  onClose,
+  toggleFavorite,
+  isFavorite = false,
+}: ModalNoticeProps) {
   const date = new Date(notice.birthday).toLocaleDateString("uk-UA");
+  const [favorite, setFavorite] = useState(isFavorite);
+
+  const handleToggleFavorite = () => {
+    toggleFavorite?.(notice);
+    setFavorite((prev) => !prev);
+  };
 
   return (
     <div className={css.modal_notice}>
@@ -93,9 +106,9 @@ function ModalNotice({ notice, onClose, toggleFavorite }: ModalNoticeProps) {
             <button
               className={css.add_btn}
               type="button"
-              onClick={() => toggleFavorite(notice)}
+              onClick={handleToggleFavorite}
             >
-              Add to
+              {favorite ? "Add to" : "Remove to"}
               <svg className={css.icon_heart} width={18} height={18}>
                 <use href="/sprite.svg#icon-heart" />
               </svg>

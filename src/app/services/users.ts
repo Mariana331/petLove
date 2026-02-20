@@ -1,12 +1,11 @@
 import axios from "axios";
+import { URL } from "./api";
 import type {
   RegistrationRequest,
   LoginRequest,
   AddPetsRequest,
   EditUserCurrentRequest,
 } from "../types/users";
-
-const URL = "https://petlove.b.goit.study/api";
 
 export async function SignUp(data: RegistrationRequest) {
   const res = await axios.post(`${URL}/users/signup`, {
@@ -48,7 +47,6 @@ export async function GetUserFull() {
       Authorization: `Bearer ${token}`,
     },
   });
-
   return res.data;
 }
 

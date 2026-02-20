@@ -15,15 +15,15 @@ import { ToastContainer } from "react-toastify";
 import { useAuthStore } from "./app/stores/authStore";
 import { useModalStore } from "./app/stores/modalStore";
 import { useEffect } from "react";
+import ProtectedRoute from "./app/routes/ProtectedRoute";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
   const userName = useAuthStore((state) => state.userName);
   const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
-  const closeModal = useModalStore((state) => state.closeModal);
-
   const navigate = useNavigate();
+  const { closeModal } = useModalStore();
 
   useEffect(() => {
     initAuth();
@@ -39,7 +39,7 @@ function App() {
 
   return (
     <div>
-      <ToastContainer position="top-right" autoClose={3000} />
+      <ToastContainer position="top-right" autoClose={2000} />
 
       <Routes>
         <Route path="/" element={<Main />} />
@@ -48,8 +48,8 @@ function App() {
           element={
             <Layout
               isAuth={isAuth}
-              onLogOut={handleLogout}
               userName={userName}
+              handleLogout={handleLogout}
             />
           }
         >
@@ -60,10 +60,21 @@ function App() {
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />
           <Route path="*" element={<NotFound />} />
-          <Route path="/add-pet" element={<AddPet />} />
+          <Route
+            path="/add-pet"
+            element={
+              <ProtectedRoute>
+                <AddPet />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/profile"
-            element={<Profile onLogOut={handleLogout} />}
+            element={
+              <ProtectedRoute>
+                <Profile onLogOut={handleLogout} />
+              </ProtectedRoute>
+            }
           />
         </Route>
       </Routes>

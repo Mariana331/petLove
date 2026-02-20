@@ -1,7 +1,6 @@
 import type { NewResult } from "../types/news";
 import axios from "axios";
-
-const url = "https://petlove.b.goit.study/api";
+import { URL } from "./api";
 
 export interface NewsResponse {
   results: NewResult[];
@@ -19,7 +18,7 @@ export async function getNews({
   limit,
   keyword,
 }: getNewsParams): Promise<NewsResponse> {
-  const res = await axios.get<NewsResponse>(`${url}/news`, {
+  const res = await axios.get<NewsResponse>(`${URL}/news`, {
     params: { page, limit, keyword },
   });
   return res.data;

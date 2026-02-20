@@ -194,41 +194,56 @@ export function AddPetForm() {
         </div>
 
         <div className={css.wrapper_form}>
-          <input
-            {...register("title")}
-            type="text"
-            placeholder="Title"
-            className={css.wrapper_form_input}
-          />
+          <div className={css.wrapper_error}>
+            <input
+              {...register("title")}
+              type="text"
+              placeholder="Title"
+              className={css.wrapper_form_input}
+            />
+            {errors.title && (
+              <p className={css.error_text}>{errors.title.message}</p>
+            )}
+          </div>
 
-          <input
-            {...register("name")}
-            type="name"
-            placeholder="Pet’s Name"
-            className={css.wrapper_form_input}
-            defaultValue=""
-          />
+          <div className={css.wrapper_error}>
+            <input
+              {...register("name")}
+              type="name"
+              placeholder="Pet’s Name"
+              className={css.wrapper_form_input}
+              defaultValue=""
+            />
+            {errors.name && (
+              <p className={css.error_text}>{errors.name.message}</p>
+            )}
+          </div>
         </div>
 
         <div className={css.wrapper_data_type}>
-          <Controller
-            name="birthday"
-            control={control}
-            render={({ field }) => (
-              <Flatpickr
-                options={{ dateFormat: "Y-m-d" }}
-                className={css.inputDate}
-                placeholder="00.00.00"
-                onChange={(dates) => {
-                  const date = dates[0];
-                  if (!date) return;
+          <div className={css.data_box}>
+            <Controller
+              name="birthday"
+              control={control}
+              render={({ field }) => (
+                <Flatpickr
+                  options={{ dateFormat: "Y-m-d" }}
+                  className={css.inputDate}
+                  placeholder="00.00.00"
+                  onChange={(dates) => {
+                    const date = dates[0];
+                    if (!date) return;
 
-                  const formatted = date.toISOString().split("T")[0];
-                  field.onChange(formatted);
-                }}
-              />
+                    const formatted = date.toISOString().split("T")[0];
+                    field.onChange(formatted);
+                  }}
+                />
+              )}
+            />
+            {errors.birthday && (
+              <p className={css.error_text}>{errors.birthday.message}</p>
             )}
-          />
+          </div>
           <div className={css.form_pet}>
             <Controller
               name="species"
@@ -267,6 +282,9 @@ export function AddPetForm() {
                 />
               )}
             />
+            {errors.species && (
+              <p className={css.error_text}>{errors.species.message}</p>
+            )}
           </div>
         </div>
         <div className={css.form_btns}>

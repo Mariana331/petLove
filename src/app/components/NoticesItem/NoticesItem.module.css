@@ -92,6 +92,9 @@
   line-height: 140%;
   letter-spacing: -0.02em;
   color: rgba(38, 38, 38, 0.5);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .text_span {

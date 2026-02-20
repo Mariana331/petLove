@@ -163,6 +163,7 @@ function ModalEditUser({ onClose, user }: ModalEditUserProps) {
               />
             )}
           />
+
           <label className={css.wrapper_label}>
             Upload photo
             <input
@@ -177,33 +178,41 @@ function ModalEditUser({ onClose, user }: ModalEditUserProps) {
           </label>
         </div>
         <div className={css.user_form}>
-          <input
-            {...register("name")}
-            className={css.form_input}
-            type="text"
-            defaultValue={user.name}
-          />
-          {errors.name && (
-            <p className={css.error_text}>{errors.name.message}</p>
-          )}
-          <input
-            {...register("email")}
-            className={css.form_input}
-            type="email"
-            defaultValue={user.email}
-          />
-          {errors.email && (
-            <p className={css.error_text}>{errors.email.message}</p>
-          )}
-          <input
-            {...register("phone")}
-            className={css.form_input_tel}
-            type="text"
-            placeholder="+380"
-          />
-          {errors.phone && (
-            <p className={css.error_text}>{errors.phone.message}</p>
-          )}
+          <div className={css.user_form_wrapper}>
+            <input
+              {...register("name")}
+              className={css.form_input}
+              type="text"
+              defaultValue={user.name}
+            />
+            {errors.name && (
+              <p className={css.error_text}>{errors.name.message}</p>
+            )}
+          </div>
+
+          <div className={css.user_form_wrapper}>
+            <input
+              {...register("email")}
+              className={css.form_input}
+              type="email"
+              defaultValue={user.email}
+            />
+            {errors.email && (
+              <p className={css.error_text}>{errors.email.message}</p>
+            )}
+          </div>
+
+          <div className={css.user_form_wrapper}>
+            <input
+              {...register("phone")}
+              className={css.form_input_tel}
+              type="text"
+              placeholder="+380"
+            />
+            {errors.phone && (
+              <p className={css.error_text}>{errors.phone.message}</p>
+            )}
+          </div>
         </div>
         <button className={css.form_btn} type="submit">
           Save

@@ -83,14 +83,6 @@
   width: 100%;
 }
 
-.error_text_sex {
-  position: absolute;
-  bottom: -40px;
-  left: 0;
-  font-size: 10px;
-  color: #ef5050;
-}
-
 .error_text {
   position: absolute;
   bottom: -10px;
@@ -146,6 +138,9 @@ input:not(:placeholder-shown) {
   flex-direction: column;
   gap: 10px;
   margin-bottom: 21px;
+}
+
+.user_form_wrapper {
   position: relative;
 }
 
@@ -153,6 +148,7 @@ input:not(:placeholder-shown) {
   border-radius: 30px;
   padding: 12px;
   max-height: 42px;
+  width: 100%;
 }
 
 .form_input_tel {
@@ -160,6 +156,7 @@ input:not(:placeholder-shown) {
   border-radius: 30px;
   padding: 12px;
   max-height: 42px;
+  width: 100%;
 }
 
 .form_input::placeholder,

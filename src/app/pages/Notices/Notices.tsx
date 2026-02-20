@@ -37,7 +37,6 @@ function Notices({ isAuth }: NoticesProps) {
   const limit = 6;
 
   const { isOpen, type, notice, openModal, closeModal } = useModalStore();
-  const openAttentionModal = () => openModal("attention");
 
   const { data, isLoading, isError } = useQuery<NoticeResponse>({
     queryKey: [
@@ -76,7 +75,7 @@ function Notices({ isAuth }: NoticesProps) {
 
   const handleLearnMore = async (result: Notice) => {
     if (!isAuth) {
-      openAttentionModal();
+      openModal("attention");
       return;
     }
     try {
@@ -89,10 +88,9 @@ function Notices({ isAuth }: NoticesProps) {
 
   const toggleFavorite = async (result: Notice) => {
     if (!isAuth) {
-      openAttentionModal();
+      openModal("attention");
       return;
     }
-
     try {
       if (result.favorites) {
         await deleteFavorite(result._id);

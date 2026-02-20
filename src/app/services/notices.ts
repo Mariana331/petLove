@@ -1,7 +1,6 @@
 import type { Notice } from "../types/notices";
 import axios from "axios";
-
-const URL = "https://petlove.b.goit.study/api";
+import { URL } from "./api";
 
 export interface NoticeResponse {
   results: Notice[];

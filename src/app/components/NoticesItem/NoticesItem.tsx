@@ -1,26 +1,38 @@
 import css from "./NoticesItem.module.css";
 import type { Notice } from "../../types/notices";
 import { useLocation } from "react-router-dom";
+import { useState } from "react";
 
 interface NoticeItemProps {
   notice: Notice;
-  handleLearnMore: (notice: Notice) => void;
-  toggleFavorite: (notice: Notice) => void;
+  handleLearnMore?: (notice: Notice) => void;
+  handleDeleteFavorite?: (notice: Notice) => void;
+  toggleFavorite?: (notice: Notice) => void;
   showHeart?: boolean;
   showTrash?: boolean;
+  isFavorite?: boolean;
 }
 
 function NoticeItem({
   notice,
   handleLearnMore,
+  handleDeleteFavorite,
   toggleFavorite,
+  isFavorite = false,
   showHeart = false,
   showTrash = false,
 }: NoticeItemProps) {
   const date = new Date(notice.birthday).toLocaleDateString("uk-UA");
+  const [favorite, setFavorite] = useState(isFavorite);
+
+  const handleToggleFavorite = () => {
+    toggleFavorite?.(notice);
+    setFavorite((prev) => !prev);
+  };
 
   const location = useLocation();
   const isProfile = location.pathname === "/profile";
+
   return (
     <div className={isProfile ? css.notice_item_profile : css.notice_item}>
       <div className={isProfile ? css.notice_image_profile : css.notice_image}>
@@ -77,7 +89,7 @@ function NoticeItem({
             <button
               className={css.more_btn}
               type="button"
-              onClick={() => handleLearnMore(notice)}
+              onClick={() => handleLearnMore?.(notice)}
             >
               Learn more
             </button>
@@ -86,7 +98,7 @@ function NoticeItem({
               <button
                 type="button"
                 className={css.heart_btn}
-                onClick={() => toggleFavorite(notice)}
+                onClick={() => handleDeleteFavorite?.(notice)}
               >
                 <svg className={css.icon_trash} width={18} height={18}>
                   <use href="/sprite.svg#icon-trash" />
@@ -98,12 +110,10 @@ function NoticeItem({
               <button
                 type="button"
                 className={css.heart_btn}
-                onClick={() => handleLearnMore(notice)}
+                onClick={handleToggleFavorite}
               >
                 <svg
-                  className={`${css.icon_heart} ${
-                    notice.favorites ? css.active_heart : ""
-                  }`}
+                  className={!favorite ? css.icon_heart : css.active_heart}
                   width={18}
                   height={18}
                 >

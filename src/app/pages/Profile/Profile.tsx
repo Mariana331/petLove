@@ -2,6 +2,7 @@ import css from "./Profile.module.css";
 import UserCard from "../../components/UserCard/UserCard";
 import MyNotices from "../../components/MyNotices/MyNotices";
 import ModalEditUser from "../../components/ModalEditUser/ModalEditUser";
+import ModalNotice from "../../components/ModalNotice/ModalNotice";
 import Modal from "../../components/Modal/Modal";
 import ModalApproveAction from "../../components/ModalApproveAction/ModalApproveAction";
 import {
@@ -15,6 +16,8 @@ import { GetUserFull, DeletePets } from "../../services/users";
 import { useModalStore } from "../../stores/modalStore";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useLoaderStore } from "../../stores/useLoaderStore";
+import { useEffect } from "react";
 
 interface ProfileProps {
   onLogOut: () => void;
@@ -26,7 +29,11 @@ function Profile({ onLogOut }: ProfileProps) {
   const openEditUserModal = () => openModal("editUser");
   const openApproveModal = () => openModal("approve");
 
-  const { data: user, isError } = useQuery({
+  const {
+    data: user,
+    isError,
+    isLoading,
+  } = useQuery({
     queryKey: ["user"],
     queryFn: () => GetUserFull(),
     placeholderData: keepPreviousData,
@@ -44,11 +51,18 @@ function Profile({ onLogOut }: ProfileProps) {
     },
   });
 
+  const start = useLoaderStore((s) => s.start);
+  const finish = useLoaderStore((s) => s.finish);
+  useEffect(() => {
+    if (isLoading) start();
+    else finish();
+  }, [isLoading, start, finish]);
+
   return (
     <div className={css.profile}>
       <div className="container">
         <div className={css.container_profile}>
-          {user && (
+          {!isLoading && user && (
             <UserCard
               user={user}
               openEditUserModal={openEditUserModal}
@@ -68,6 +82,9 @@ function Profile({ onLogOut }: ProfileProps) {
               )}
               {type === "approve" && (
                 <ModalApproveAction onClose={closeModal} onLogOut={onLogOut} />
+              )}
+              {type === "result" && user && (
+                <ModalNotice onClose={closeModal} notice={user.notice} />
               )}
             </Modal>
           )}

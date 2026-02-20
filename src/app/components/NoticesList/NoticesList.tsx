@@ -5,7 +5,7 @@ import type { Notice } from "../../types/notices";
 interface NoticesListProps {
   results: Notice[];
   handleLearnMore: (notice: Notice) => void;
-  toggleFavorite: (notice: Notice) => void;
+  toggleFavorite?: (notice: Notice) => void;
 }
 
 function NoticesList({
@@ -20,8 +20,8 @@ function NoticesList({
           key={notice._id}
           notice={notice}
           handleLearnMore={handleLearnMore}
-          showHeart={true}
           toggleFavorite={toggleFavorite}
+          showHeart={true}
         />
       ))}
     </div>

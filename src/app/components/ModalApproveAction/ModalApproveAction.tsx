@@ -27,7 +27,6 @@ function ModalApproveAction({ onClose, onLogOut }: ModalApproveActionProps) {
             type="button"
             onClick={() => {
               onClose();
-              onLogOut();
             }}
           >
             Cancel

@@ -7,10 +7,10 @@ import { useState } from "react";
 interface HeaderProps {
   isAuth: boolean;
   userName: string;
-  onLogOut: () => void;
+  handleLogout: () => void;
 }
 
-function Header({ isAuth, userName, onLogOut }: HeaderProps) {
+function Header({ isAuth, userName, handleLogout }: HeaderProps) {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
   const location = useLocation();
 
@@ -65,7 +65,7 @@ function Header({ isAuth, userName, onLogOut }: HeaderProps) {
                 <button
                   className={css.header_logout}
                   type="button"
-                  onClick={onLogOut}
+                  onClick={handleLogout}
                 >
                   Log out
                 </button>
@@ -103,7 +103,7 @@ function Header({ isAuth, userName, onLogOut }: HeaderProps) {
             onClose={() => setIsOpenMobileMenu(false)}
             isHome={isHome}
             isAuth={isAuth}
-            onLogOut={onLogOut}
+            onLogOut={handleLogout}
           />
         </div>
       </div>
