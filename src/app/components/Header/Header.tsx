@@ -76,7 +76,7 @@ function Header({ isAuth, handleLogout }: HeaderProps) {
                 >
                   Log out
                 </button>
-                {user.avatar ? (
+                {user?.avatar ? (
                   <img
                     className={css.header_avatar}
                     src={user.avatar}
@@ -98,7 +98,7 @@ function Header({ isAuth, handleLogout }: HeaderProps) {
                   className={isHome ? css.user_text_home : css.user_text}
                   to="/profile"
                 >
-                  {user.name}
+                  {user?.name}
                 </Link>
               </>
             )}
