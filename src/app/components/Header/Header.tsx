@@ -3,16 +3,23 @@ import Logo from "../Logo/logo";
 import MobileMenu from "../MobileMenu/MobileMenu";
 import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import { GetUserFull } from "../../services/users";
 
 interface HeaderProps {
   isAuth: boolean;
-  userName: string;
   handleLogout: () => void;
 }
 
-function Header({ isAuth, userName, handleLogout }: HeaderProps) {
+function Header({ isAuth, handleLogout }: HeaderProps) {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
   const location = useLocation();
+
+  const { data: user } = useQuery({
+    queryKey: ["user"],
+    queryFn: GetUserFull,
+    placeholderData: keepPreviousData,
+  });
 
   const isHome = location.pathname === "/home";
   return (
@@ -69,16 +76,29 @@ function Header({ isAuth, userName, handleLogout }: HeaderProps) {
                 >
                   Log out
                 </button>
-                <Link to="/profile" className={css.header_user_menu}>
-                  <svg className={css.header_icon_user} width={20} height={20}>
-                    <use href="/sprite.svg#icon-user" />
-                  </svg>
-                </Link>
+                {user.avatar ? (
+                  <img
+                    className={css.header_avatar}
+                    src={user.avatar}
+                    width={20}
+                    height={20}
+                  />
+                ) : (
+                  <Link to="/profile" className={css.header_user_menu}>
+                    <svg
+                      className={css.header_icon_user}
+                      width={20}
+                      height={20}
+                    >
+                      <use href="/sprite.svg#icon-user" />
+                    </svg>
+                  </Link>
+                )}
                 <Link
                   className={isHome ? css.user_text_home : css.user_text}
                   to="/profile"
                 >
-                  {userName}
+                  {user.name}
                 </Link>
               </>
             )}

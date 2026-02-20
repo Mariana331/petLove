@@ -29,6 +29,10 @@
   margin-bottom: 24px;
 }
 
+.input_name {
+  position: relative;
+}
+
 .email_wrapper {
   position: relative;
 }

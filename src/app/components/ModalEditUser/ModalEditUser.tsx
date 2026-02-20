@@ -70,6 +70,7 @@ function ModalEditUser({ onClose, user }: ModalEditUserProps) {
 
   const queryClient = useQueryClient();
   const [preview, setPreview] = useState<string | null>(null);
+  const imageSrc = preview || user.avatar;
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -136,8 +137,8 @@ function ModalEditUser({ onClose, user }: ModalEditUserProps) {
       <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
         <h3 className={css.title}>Edit information</h3>
         <div className={css.box_image}>
-          {preview ? (
-            <img className={css.image} src={preview} alt={user.name} />
+          {imageSrc ? (
+            <img className={css.image} src={user.avatar} alt={user.name} />
           ) : (
             <div className={css.box_image_no}>
               <svg className={css.icon_user} width={40} height={40}>

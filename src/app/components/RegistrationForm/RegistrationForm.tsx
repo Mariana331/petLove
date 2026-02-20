@@ -59,7 +59,7 @@ export function RegistrationForm() {
   const onSubmit = async (data: RegistrationFormData) => {
     try {
       const res = await SignUp(data as RegistrationRequest);
-      login(res.name, res.token);
+      login(res.token);
       toast.success("Registration successful!");
       reset();
       navigate("/profile");

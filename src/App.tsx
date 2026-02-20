@@ -19,7 +19,6 @@ import ProtectedRoute from "./app/routes/ProtectedRoute";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
-  const userName = useAuthStore((state) => state.userName);
   const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
   const navigate = useNavigate();
@@ -44,15 +43,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
 
-        <Route
-          element={
-            <Layout
-              isAuth={isAuth}
-              userName={userName}
-              handleLogout={handleLogout}
-            />
-          }
-        >
+        <Route element={<Layout isAuth={isAuth} handleLogout={handleLogout} />}>
           <Route path="home" element={<Home />} />
           <Route path="news" element={<News />} />
           <Route path="notices" element={<Notices isAuth={isAuth} />} />

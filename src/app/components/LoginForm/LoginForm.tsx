@@ -53,7 +53,7 @@ function LoginForm() {
   const onSubmit = async (data: LoginFormData) => {
     try {
       const res = await SignIn(data as LoginRequest);
-      login(res.name, res.token);
+      login(res.token);
 
       toast.success("Login successful!");
       reset();

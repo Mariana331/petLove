@@ -4,14 +4,13 @@ import Loader from "./app/components/Loader/Loader";
 
 interface LayoutProps {
   isAuth: boolean;
-  userName: string;
   handleLogout: () => void;
 }
 
-function Layout({ isAuth, userName, handleLogout }: LayoutProps) {
+function Layout({ isAuth, handleLogout }: LayoutProps) {
   return (
     <div>
-      <Header isAuth={isAuth} userName={userName} handleLogout={handleLogout} />
+      <Header isAuth={isAuth} handleLogout={handleLogout} />
       <Loader />
       <Outlet />
     </div>

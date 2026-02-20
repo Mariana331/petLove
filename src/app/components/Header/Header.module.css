@@ -139,6 +139,12 @@
   align-items: center;
 }
 
+.header_avatar {
+  border-radius: 100%;
+  width: 40px;
+  height: 40px;
+}
+
 .header_icon_user {
   display: block;
   fill: #f6b83d;
@@ -204,6 +210,11 @@
 
   .header_user_menu {
     padding: 13px;
+  }
+
+  .header_avatar {
+    width: 50px;
+    height: 50px;
   }
 
   .header_icon_user {
