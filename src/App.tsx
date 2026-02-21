@@ -18,7 +18,6 @@ import { useEffect, useState } from "react";
 import ProtectedRoute from "./app/routes/ProtectedRoute";
 import type { Notice } from "./app/types/notices";
 import { deleteFavorite, addFavorite } from "./app/services/notices";
-import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
@@ -26,8 +25,6 @@ function App() {
   const initAuth = useAuthStore((state) => state.initAuth);
   const navigate = useNavigate();
   const { closeModal, openModal } = useModalStore();
-
-  const queryClient = useQueryClient();
 
   const [favorite, setFavorite] = useState<string[]>([]);
 
@@ -47,9 +44,6 @@ function App() {
         await addFavorite(notice._id);
         setFavorite((prev) => [...prev, notice._id]);
       }
-
-      queryClient.invalidateQueries({ queryKey: ["results"] });
-      queryClient.invalidateQueries({ queryKey: ["user"] });
     } catch (error) {
       console.error(error);
     }

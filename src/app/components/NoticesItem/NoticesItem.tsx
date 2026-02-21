@@ -9,7 +9,7 @@ interface NoticeItemProps {
   toggleFavorite?: (notice: Notice) => void;
   showHeart?: boolean;
   showTrash?: boolean;
-  isFavorite: boolean;
+  isFavorite?: boolean;
 }
 
 function NoticeItem({
