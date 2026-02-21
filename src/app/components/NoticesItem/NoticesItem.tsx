@@ -1,7 +1,6 @@
 import css from "./NoticesItem.module.css";
 import type { Notice } from "../../types/notices";
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
 
 interface NoticeItemProps {
   notice: Notice;
@@ -10,7 +9,7 @@ interface NoticeItemProps {
   toggleFavorite?: (notice: Notice) => void;
   showHeart?: boolean;
   showTrash?: boolean;
-  isFavorite?: boolean;
+  isFavorite: boolean;
 }
 
 function NoticeItem({
@@ -18,18 +17,15 @@ function NoticeItem({
   handleLearnMore,
   handleDeleteFavorite,
   toggleFavorite,
-  isFavorite = false,
+  isFavorite,
   showHeart = false,
   showTrash = false,
 }: NoticeItemProps) {
   const date = new Date(notice.birthday).toLocaleDateString("uk-UA");
-  const [favorite, setFavorite] = useState(isFavorite);
 
-  const handleToggleFavorite = () => {
+  const handleToggle = () => {
     toggleFavorite?.(notice);
-    setFavorite((prev) => !prev);
   };
-
   const location = useLocation();
   const isProfile = location.pathname === "/profile";
 
@@ -110,10 +106,10 @@ function NoticeItem({
               <button
                 type="button"
                 className={css.heart_btn}
-                onClick={handleToggleFavorite}
+                onClick={handleToggle}
               >
                 <svg
-                  className={!favorite ? css.icon_heart : css.active_heart}
+                  className={isFavorite ? css.active_heart : css.icon_heart}
                   width={18}
                   height={18}
                 >

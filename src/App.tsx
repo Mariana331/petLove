@@ -14,15 +14,46 @@ import { SignOut } from "./app/services/users";
 import { ToastContainer } from "react-toastify";
 import { useAuthStore } from "./app/stores/authStore";
 import { useModalStore } from "./app/stores/modalStore";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import ProtectedRoute from "./app/routes/ProtectedRoute";
+import type { Notice } from "./app/types/notices";
+import { deleteFavorite, addFavorite } from "./app/services/notices";
+import { useQueryClient } from "@tanstack/react-query";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
   const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
   const navigate = useNavigate();
-  const { closeModal } = useModalStore();
+  const { closeModal, openModal } = useModalStore();
+
+  const queryClient = useQueryClient();
+
+  const [favorite, setFavorite] = useState<string[]>([]);
+
+  const toggleFavorite = async (notice: Notice) => {
+    if (!isAuth) {
+      openModal("attention");
+      return;
+    }
+
+    const isFavorite = favorite.includes(notice._id);
+
+    try {
+      if (isFavorite) {
+        await deleteFavorite(notice._id);
+        setFavorite((prev) => prev.filter((id) => id !== notice._id));
+      } else {
+        await addFavorite(notice._id);
+        setFavorite((prev) => [...prev, notice._id]);
+      }
+
+      queryClient.invalidateQueries({ queryKey: ["results"] });
+      queryClient.invalidateQueries({ queryKey: ["user"] });
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     initAuth();
@@ -46,7 +77,16 @@ function App() {
         <Route element={<Layout isAuth={isAuth} handleLogout={handleLogout} />}>
           <Route path="home" element={<Home />} />
           <Route path="news" element={<News />} />
-          <Route path="notices" element={<Notices isAuth={isAuth} />} />
+          <Route
+            path="notices"
+            element={
+              <Notices
+                isAuth={isAuth}
+                toggleFavorite={toggleFavorite}
+                isFavorite={favorite}
+              />
+            }
+          />
           <Route path="friends" element={<Friends />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />

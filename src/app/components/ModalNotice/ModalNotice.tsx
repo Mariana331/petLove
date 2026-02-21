@@ -6,19 +6,19 @@ interface ModalNoticeProps {
   notice: Notice;
   onClose: () => void;
   toggleFavorite?: (notice: Notice) => void;
-  isFavorite?: boolean;
+  isFavorite: string[];
 }
 
 function ModalNotice({
   notice,
   onClose,
   toggleFavorite,
-  isFavorite = false,
+  isFavorite,
 }: ModalNoticeProps) {
   const date = new Date(notice.birthday).toLocaleDateString("uk-UA");
-  const [favorite, setFavorite] = useState(isFavorite);
+  const [favorite, setFavorite] = useState(isFavorite.includes(notice._id));
 
-  const handleToggleFavorite = () => {
+  const handleToggle = async () => {
     toggleFavorite?.(notice);
     setFavorite((prev) => !prev);
   };
@@ -106,9 +106,9 @@ function ModalNotice({
             <button
               className={css.add_btn}
               type="button"
-              onClick={handleToggleFavorite}
+              onClick={handleToggle}
             >
-              {favorite ? "Add to" : "Remove to"}
+              {!favorite ? "Add to" : "Remove to"}
               <svg className={css.icon_heart} width={18} height={18}>
                 <use href="/sprite.svg#icon-heart" />
               </svg>
@@ -116,7 +116,7 @@ function ModalNotice({
           </div>
           <a
             className={css.contact_button}
-            href={`/profile/${notice.user}`}
+            href={`/*`}
             target="_blank"
             rel="noopener noreferrer"
           >

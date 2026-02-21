@@ -8,12 +8,7 @@ import Pagination from "../../components/Pagination/Pagination";
 import { useState } from "react";
 import type { NoticeResponse } from "../../services/notices";
 import type { Notice } from "../../types/notices";
-import {
-  getNotices,
-  getNoticeById,
-  addFavorite,
-  deleteFavorite,
-} from "../../services/notices";
+import { getNotices, getNoticeById } from "../../services/notices";
 import ModalAttention from "../../components/ModalAttention/ModalAttention";
 import Modal from "../../components/Modal/Modal";
 import ModalNotice from "../../components/ModalNotice/ModalNotice";
@@ -23,9 +18,11 @@ import { useEffect } from "react";
 
 interface NoticesProps {
   isAuth: boolean;
+  toggleFavorite: (notice: Notice) => void;
+  isFavorite: string[];
 }
 
-function Notices({ isAuth }: NoticesProps) {
+function Notices({ isAuth, toggleFavorite, isFavorite }: NoticesProps) {
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
   const [locationId, setLocation] = useState("");
@@ -86,22 +83,6 @@ function Notices({ isAuth }: NoticesProps) {
     }
   };
 
-  const toggleFavorite = async (result: Notice) => {
-    if (!isAuth) {
-      openModal("attention");
-      return;
-    }
-    try {
-      if (result.favorites) {
-        await deleteFavorite(result._id);
-      } else {
-        await addFavorite(result._id);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   return (
     <div className={css.notices}>
       <div className="container">
@@ -149,6 +130,7 @@ function Notices({ isAuth }: NoticesProps) {
               results={data.results}
               handleLearnMore={handleLearnMore}
               toggleFavorite={toggleFavorite}
+              isFavorite={isFavorite}
             />
           )}
           {!isLoading && data && data.results.length === 0 && (
@@ -170,6 +152,7 @@ function Notices({ isAuth }: NoticesProps) {
                   notice={notice}
                   onClose={closeModal}
                   toggleFavorite={toggleFavorite}
+                  isFavorite={isFavorite}
                 />
               )}
             </Modal>

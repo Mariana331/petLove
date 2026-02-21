@@ -2,7 +2,6 @@ import css from "./Profile.module.css";
 import UserCard from "../../components/UserCard/UserCard";
 import MyNotices from "../../components/MyNotices/MyNotices";
 import ModalEditUser from "../../components/ModalEditUser/ModalEditUser";
-import ModalNotice from "../../components/ModalNotice/ModalNotice";
 import Modal from "../../components/Modal/Modal";
 import ModalApproveAction from "../../components/ModalApproveAction/ModalApproveAction";
 import {
@@ -82,9 +81,6 @@ function Profile({ onLogOut }: ProfileProps) {
               )}
               {type === "approve" && (
                 <ModalApproveAction onClose={closeModal} onLogOut={onLogOut} />
-              )}
-              {type === "result" && user && (
-                <ModalNotice onClose={closeModal} notice={user.notice} />
               )}
             </Modal>
           )}

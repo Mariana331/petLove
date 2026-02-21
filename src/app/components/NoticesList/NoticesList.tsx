@@ -6,12 +6,14 @@ interface NoticesListProps {
   results: Notice[];
   handleLearnMore: (notice: Notice) => void;
   toggleFavorite?: (notice: Notice) => void;
+  isFavorite: string[];
 }
 
 function NoticesList({
   results,
   handleLearnMore,
   toggleFavorite,
+  isFavorite,
 }: NoticesListProps) {
   return (
     <div className={css.notice_list}>
@@ -22,6 +24,7 @@ function NoticesList({
           handleLearnMore={handleLearnMore}
           toggleFavorite={toggleFavorite}
           showHeart={true}
+          isFavorite={isFavorite.includes(notice._id)}
         />
       ))}
     </div>
