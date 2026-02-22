@@ -53,17 +53,16 @@
 
 ## 🧩 Tech Stack
 
-| Technology                 | Purpose                          |
-| -------------------------- | -------------------------------- |
-| React + TypeScript         | UI + type safety                 |
-| React Router               | Client-side routing              |
-| React Query                | Data fetching + caching          |
-| Firebase Auth              | Authentication                   |
-| Firebase Realtime Database | Pets, favorites, views storage   |
-| Context API / Zustand      | Global state (modals, loader)    |
-| LocalStorage               | Favorites persistence for guests |
-| Axios                      | HTTP requests                    |
-| CSS Modules                | Scoped styling                   |
+| Technology         | Purpose                           |
+| ------------------ | --------------------------------- |
+| React + TypeScript | UI + type safety                  |
+| React Router       | Client-side routing               |
+| React Query        | Data fetching + caching           |
+| Swagger / API      | Endpoint documentation & testing; |
+| Zustand            | Global state (modals, loader)     |
+| LocalStorage       | Favorites persistence for guests  |
+| Axios              | HTTP requests                     |
+| CSS Modules        | Scoped styling                    |
 
 ---
 
