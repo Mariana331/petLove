@@ -1,73 +1,74 @@
-# React + TypeScript + Vite
+# 🐾 PetLove
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**PetLove** is an application designed to help users browse pets, save favorites, view details, add their own pets, read news, and manage their profile. Built with **React + TypeScript**, and **React Query** for efficient data handling.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## ✨ Features
 
-## React Compiler
+### Search & Filters
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+- 🔍 Search pets by name or keyword
+- 🏷 Filter by category (sell/free), species (cat, dog, fish), sex, and location
+- ⭐ Sort by popularity or price
 
-## Expanding the ESLint configuration
+### Pet Details
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- 🖼 Photo, name, species, category, age, sex
+- 💬 Description/comment
+- 💰 Price (if for sale)
+- ⭐ Add to Favorites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+### Favorites
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+- 🌟 Add/remove pets from favorites
+- 💾 Stored in **LocalStorage** for guests or in backend for logged-in users
+- 💖 UI heart reflects favorite status
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+### Authentication
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- 🔐 User registration & login via backend API (Swagger)
+- 👤 Persistent user state
+- 🚪 Logout
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Profile
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- 🧍 Display username and avatar
+- 🐾 User’s pets
+- ⭐ User’s favorite pets
+- 🗑 Ability to delete pets or remove favorites
+
+### Modals
+
+- 📩 Meeting request / contact pet owner
+- ℹ️ Pet details (`ModalNotice`)
+- ⚠️ Attention modal for unauthenticated actions
+
+### Pagination / Infinite Scroll
+
+- 🔄 Load pets by page or “load more”
+- 🧩 Uses **React Query** for caching and query invalidation
+
+---
+
+## 🧩 Tech Stack
+
+| Technology                 | Purpose                          |
+| -------------------------- | -------------------------------- |
+| React + TypeScript         | UI + type safety                 |
+| React Router               | Client-side routing              |
+| React Query                | Data fetching + caching          |
+| Firebase Auth              | Authentication                   |
+| Firebase Realtime Database | Pets, favorites, views storage   |
+| Context API / Zustand      | Global state (modals, loader)    |
+| LocalStorage               | Favorites persistence for guests |
+| Axios                      | HTTP requests                    |
+| CSS Modules                | Scoped styling                   |
+
+---
+
+## 🖥 Deployment
+
+- 🌐 Firebase Hosting
+- ▲ Vercel
+- 🌐 Netlify
