@@ -1,6 +1,10 @@
 import css from "./Notices.module.css";
 import Title from "../../components/Title/Title";
-import { useQuery, keepPreviousData } from "@tanstack/react-query";
+import {
+  useQuery,
+  keepPreviousData,
+  useQueryClient,
+} from "@tanstack/react-query";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import NoticesList from "../../components/NoticesList/NoticesList";
 import NoticesFilter from "../../components/NoticesFilters/NoticesFilters";
@@ -15,14 +19,15 @@ import ModalNotice from "../../components/ModalNotice/ModalNotice";
 import { useModalStore } from "../../stores/modalStore";
 import { useLoaderStore } from "../../stores/loaderStore";
 import { useEffect } from "react";
+import { addFavorite, deleteFavorite } from "../../services/notices";
+import type { User } from "../../types/users";
+import { GetUserFull } from "../../services/users";
 
 interface NoticesProps {
   isAuth: boolean;
-  toggleFavorite: (notice: Notice) => void;
-  isFavorite: string[];
 }
 
-function Notices({ isAuth, toggleFavorite, isFavorite }: NoticesProps) {
+function Notices({ isAuth }: NoticesProps) {
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
   const [locationId, setLocation] = useState("");
@@ -32,6 +37,8 @@ function Notices({ isAuth, toggleFavorite, isFavorite }: NoticesProps) {
   const [byPopularity, setByPopularity] = useState<boolean | null>(null);
   const [byPrice, setByPrice] = useState<boolean | null>(null);
   const limit = 6;
+
+  const queryClient = useQueryClient();
 
   const { isOpen, type, notice, openModal, closeModal } = useModalStore();
 
@@ -69,6 +76,27 @@ function Notices({ isAuth, toggleFavorite, isFavorite }: NoticesProps) {
     if (isLoading) start();
     else finish();
   }, [isLoading, start, finish]);
+
+  const { data: user } = useQuery<User>({
+    queryKey: ["user"],
+    queryFn: GetUserFull,
+  });
+
+  const toggleFavorite = async (notice: Notice) => {
+    if (!isAuth) {
+      openModal("attention");
+      return;
+    }
+
+    const isFavorite =
+      user?.noticesFavorites.some((n) => n._id === notice._id) ?? false;
+    if (isFavorite) {
+      await deleteFavorite(notice._id);
+    } else {
+      await addFavorite(notice._id);
+    }
+    queryClient.invalidateQueries({ queryKey: ["user"] });
+  };
 
   const handleLearnMore = async (result: Notice) => {
     if (!isAuth) {
@@ -130,7 +158,7 @@ function Notices({ isAuth, toggleFavorite, isFavorite }: NoticesProps) {
               results={data.results}
               handleLearnMore={handleLearnMore}
               toggleFavorite={toggleFavorite}
-              isFavorite={isFavorite}
+              isFavorite={user?.noticesFavorites ?? []}
             />
           )}
           {!isLoading && data && data.results.length === 0 && (
@@ -152,7 +180,10 @@ function Notices({ isAuth, toggleFavorite, isFavorite }: NoticesProps) {
                   notice={notice}
                   onClose={closeModal}
                   toggleFavorite={toggleFavorite}
-                  isFavorite={isFavorite}
+                  isFavorite={
+                    user?.noticesFavorites.some((n) => n._id === notice._id) ??
+                    false
+                  }
                 />
               )}
             </Modal>

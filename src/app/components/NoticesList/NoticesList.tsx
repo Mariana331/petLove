@@ -6,7 +6,7 @@ interface NoticesListProps {
   results: Notice[];
   handleLearnMore: (notice: Notice) => void;
   toggleFavorite?: (notice: Notice) => void;
-  isFavorite: string[];
+  isFavorite: Notice[];
 }
 
 function NoticesList({
@@ -24,7 +24,7 @@ function NoticesList({
           handleLearnMore={handleLearnMore}
           toggleFavorite={toggleFavorite}
           showHeart={true}
-          isFavorite={isFavorite.includes(notice._id)}
+          isFavorite={isFavorite.some((fav) => fav._id === notice._id)}
         />
       ))}
     </div>

@@ -14,53 +14,31 @@ import { SignOut } from "./app/services/users";
 import { ToastContainer } from "react-toastify";
 import { useAuthStore } from "./app/stores/authStore";
 import { useModalStore } from "./app/stores/modalStore";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import ProtectedRoute from "./app/routes/ProtectedRoute";
-import type { Notice } from "./app/types/notices";
-import { deleteFavorite, addFavorite } from "./app/services/notices";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
   const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
   const navigate = useNavigate();
-  const { closeModal, openModal } = useModalStore();
-
-  const [favorite, setFavorite] = useState<string[]>([]);
-
-  const toggleFavorite = async (notice: Notice) => {
-    if (!isAuth) {
-      openModal("attention");
-      return;
-    }
-
-    const isFavorite = favorite.includes(notice._id);
-
-    try {
-      if (isFavorite) {
-        await deleteFavorite(notice._id);
-        setFavorite((prev) => prev.filter((id) => id !== notice._id));
-      } else {
-        await addFavorite(notice._id);
-        setFavorite((prev) => [...prev, notice._id]);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  };
+  const { closeModal } = useModalStore();
 
   useEffect(() => {
     initAuth();
   }, [initAuth]);
 
   const handleLogout = async () => {
-    await SignOut().finally(() => {
+    try {
+      await SignOut();
+    } catch (error) {
+      console.error("Error during sign out:", error);
+    } finally {
       closeModal();
       logoutStore();
       navigate("/home");
-    });
+    }
   };
-
   return (
     <div>
       <ToastContainer position="top-right" autoClose={2000} />
@@ -71,16 +49,7 @@ function App() {
         <Route element={<Layout isAuth={isAuth} handleLogout={handleLogout} />}>
           <Route path="home" element={<Home />} />
           <Route path="news" element={<News />} />
-          <Route
-            path="notices"
-            element={
-              <Notices
-                isAuth={isAuth}
-                toggleFavorite={toggleFavorite}
-                isFavorite={favorite}
-              />
-            }
-          />
+          <Route path="notices" element={<Notices isAuth={isAuth} />} />
           <Route path="friends" element={<Friends />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />

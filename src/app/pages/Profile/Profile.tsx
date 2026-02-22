@@ -43,6 +43,7 @@ function Profile({ onLogOut }: ProfileProps) {
     mutationFn: DeletePets,
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["user"] });
+      queryClient.invalidateQueries({ queryKey: ["results"] });
       toast.success("Pet deleted");
     },
     onError: () => {

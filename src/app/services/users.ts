@@ -25,7 +25,17 @@ export async function SignIn(data: LoginRequest) {
 }
 
 export async function SignOut() {
-  return axios.post(`${URL}/users/signout`);
+  const token = localStorage.getItem("token");
+  if (!token) throw new Error("User is not logged in");
+  await axios.post(
+    `${URL}/users/signout`,
+    {},
+    {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    },
+  );
 }
 
 export async function GetUserCurrent() {

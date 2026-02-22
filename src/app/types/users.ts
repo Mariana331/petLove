@@ -1,3 +1,5 @@
+import type { Notice } from "./notices";
+
 export type User = {
   _id: string;
   name: string;
@@ -5,8 +7,8 @@ export type User = {
   avatar: string;
   phone: string;
   token: string;
-  noticesViewed: [];
-  noticesFavorite: [];
+  noticesViewed: Notice[];
+  noticesFavorites: Notice[];
   pets: [];
 };
 
