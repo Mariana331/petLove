@@ -2,10 +2,13 @@ import css from "./ModalApproveAction.module.css";
 
 interface ModalApproveActionProps {
   onClose: () => void;
-  onLogOut: () => void;
+  handleLogout: () => void;
 }
 
-function ModalApproveAction({ onClose, onLogOut }: ModalApproveActionProps) {
+function ModalApproveAction({
+  onClose,
+  handleLogout,
+}: ModalApproveActionProps) {
   return (
     <div className={css.modal_approve}>
       <button className={css.btn_close} type="button" onClick={onClose}>
@@ -19,7 +22,14 @@ function ModalApproveAction({ onClose, onLogOut }: ModalApproveActionProps) {
       <div className={css.modal_box}>
         <h3 className={css.modal_title}>Already leaving?</h3>
         <div className={css.modal_btn}>
-          <button className={css.btn_yes} type="button" onClick={onLogOut}>
+          <button
+            className={css.btn_yes}
+            type="button"
+            onClick={() => {
+              handleLogout();
+              onClose();
+            }}
+          >
             Yes
           </button>
           <button

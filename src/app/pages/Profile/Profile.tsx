@@ -19,10 +19,10 @@ import { useLoaderStore } from "../../stores/useLoaderStore";
 import { useEffect } from "react";
 
 interface ProfileProps {
-  onLogOut: () => void;
+  handleLogout: () => void;
 }
 
-function Profile({ onLogOut }: ProfileProps) {
+function Profile({ handleLogout }: ProfileProps) {
   const { isOpen, type, openModal, closeModal } = useModalStore();
 
   const openEditUserModal = () => openModal("editUser");
@@ -51,8 +51,7 @@ function Profile({ onLogOut }: ProfileProps) {
     },
   });
 
-  const start = useLoaderStore((s) => s.start);
-  const finish = useLoaderStore((s) => s.finish);
+  const { start, finish } = useLoaderStore();
   useEffect(() => {
     if (isLoading) start();
     else finish();
@@ -81,7 +80,10 @@ function Profile({ onLogOut }: ProfileProps) {
                 <ModalEditUser onClose={closeModal} user={user} />
               )}
               {type === "approve" && (
-                <ModalApproveAction onClose={closeModal} onLogOut={onLogOut} />
+                <ModalApproveAction
+                  onClose={closeModal}
+                  handleLogout={handleLogout}
+                />
               )}
             </Modal>
           )}

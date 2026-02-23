@@ -16,14 +16,13 @@ function News() {
   const [keyword, setKeyword] = useState("");
   const limit = 6;
 
-  const { data, isLoading, isError } = useQuery<NewsResponse>({
+  const { data, isError, isLoading } = useQuery<NewsResponse>({
     queryKey: ["results", page, limit, keyword],
     queryFn: () => getNews({ page, limit, keyword }),
     placeholderData: keepPreviousData,
   });
 
-  const start = useLoaderStore((s) => s.start);
-  const finish = useLoaderStore((s) => s.finish);
+  const { start, finish } = useLoaderStore();
   useEffect(() => {
     if (isLoading) start();
     else finish();

@@ -42,7 +42,7 @@ function Notices({ isAuth }: NoticesProps) {
 
   const { isOpen, type, notice, openModal, closeModal } = useModalStore();
 
-  const { data, isLoading, isError } = useQuery<NoticeResponse>({
+  const { data, isError, isLoading } = useQuery<NoticeResponse>({
     queryKey: [
       "results",
       page,
@@ -70,8 +70,7 @@ function Notices({ isAuth }: NoticesProps) {
     placeholderData: keepPreviousData,
   });
 
-  const start = useLoaderStore((s) => s.start);
-  const finish = useLoaderStore((s) => s.finish);
+  const { start, finish } = useLoaderStore();
   useEffect(() => {
     if (isLoading) start();
     else finish();

@@ -5,6 +5,10 @@ import { Link, useLocation } from "react-router-dom";
 import { useState } from "react";
 import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { GetUserFull } from "../../services/users";
+import LogOutBtn from "../LogOutBtn/LogOutBtn";
+import { useModalStore } from "../../stores/modalStore";
+import Modal from "../Modal/Modal";
+import ModalApproveAction from "../ModalApproveAction/ModalApproveAction";
 
 interface HeaderProps {
   isAuth: boolean;
@@ -14,6 +18,9 @@ interface HeaderProps {
 function Header({ isAuth, handleLogout }: HeaderProps) {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
   const location = useLocation();
+
+  const { isOpen, type, closeModal, openModal } = useModalStore();
+  const openApproveModal = () => openModal("approve");
 
   const { data: user } = useQuery({
     queryKey: ["user"],
@@ -69,13 +76,10 @@ function Header({ isAuth, handleLogout }: HeaderProps) {
               </>
             ) : (
               <>
-                <button
-                  className={css.header_logout}
-                  type="button"
-                  onClick={handleLogout}
-                >
-                  Log out
-                </button>
+                <div className={css.logout}>
+                  {" "}
+                  <LogOutBtn openApproveModal={openApproveModal} />
+                </div>
                 {user?.avatar ? (
                   <img
                     className={css.header_avatar}
@@ -127,6 +131,16 @@ function Header({ isAuth, handleLogout }: HeaderProps) {
           />
         </div>
       </div>
+      {isOpen && (
+        <Modal onClose={closeModal}>
+          {type === "approve" && (
+            <ModalApproveAction
+              onClose={closeModal}
+              handleLogout={handleLogout}
+            />
+          )}
+        </Modal>
+      )}
     </div>
   );
 }

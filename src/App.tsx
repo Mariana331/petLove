@@ -13,7 +13,6 @@ import Layout from "./Layout";
 import { SignOut } from "./app/services/users";
 import { ToastContainer } from "react-toastify";
 import { useAuthStore } from "./app/stores/authStore";
-import { useModalStore } from "./app/stores/modalStore";
 import { useEffect } from "react";
 import ProtectedRoute from "./app/routes/ProtectedRoute";
 
@@ -22,7 +21,6 @@ function App() {
   const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
   const navigate = useNavigate();
-  const { closeModal } = useModalStore();
 
   useEffect(() => {
     initAuth();
@@ -34,7 +32,6 @@ function App() {
     } catch (error) {
       console.error("Error during sign out:", error);
     } finally {
-      closeModal();
       logoutStore();
       navigate("/home");
     }
@@ -66,7 +63,7 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile onLogOut={handleLogout} />
+                <Profile handleLogout={handleLogout} />
               </ProtectedRoute>
             }
           />

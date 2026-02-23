@@ -5,13 +5,23 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { getFriends } from "../../services/friends";
 import ErrorMessage from "../../components/ErrorMessage/ErrorMessage";
 import type { Friend } from "../../types/friends";
+import { useLoaderStore } from "../../stores/useLoaderStore";
+import { useEffect } from "react";
 
 function Friends() {
-  const { data, isLoading, isError } = useQuery<Friend[]>({
+  const { data, isError, isLoading } = useQuery<Friend[]>({
     queryKey: ["friends"],
     queryFn: () => getFriends(),
     placeholderData: keepPreviousData,
   });
+
+  const { start, finish } = useLoaderStore();
+
+  useEffect(() => {
+    if (isLoading) start();
+    else finish();
+  }, [isLoading, start, finish]);
+
   return (
     <div className={css.friends}>
       <div className="container">

@@ -1,4 +1,4 @@
-.btn {
+.btn_home {
   border-radius: 30px;
   font-weight: 700;
   font-size: 14px;
@@ -13,18 +13,48 @@
   padding: 12px;
   background: #fff4df;
   width: 114px;
-  max-height: 42px;
+  height: 42px;
 }
 
-.btn:hover {
+.btn {
+  border-radius: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 129%;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 12px;
+  background: #f6b83d;
+  width: 114px;
+  height: 42px;
+}
+
+.btn_home:hover {
   background: #fff4df;
   color: #f6b83d;
 }
 
+.btn:hover {
+  background: #fbe7c1;
+}
+
 @media screen and (min-width: 768px) {
+  .btn_home {
+    padding: 15px;
+    height: 50px;
+    width: 136px;
+    font-size: 16px;
+  }
+
   .btn {
     padding: 15px;
-    max-height: 50px;
+    height: 50px;
     width: 136px;
     font-size: 16px;
   }
