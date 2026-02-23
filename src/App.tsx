@@ -1,4 +1,4 @@
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Main from "./app/pages/Main/Main";
 import Home from "./app/pages/Home/Home";
 import News from "./app/pages/News/News";
@@ -10,32 +10,20 @@ import NotFound from "./app/pages/NotFound/NotFound";
 import AddPet from "./app/pages/AddPet/AddPet";
 import Profile from "./app/pages/Profile/Profile";
 import Layout from "./Layout";
-import { SignOut } from "./app/services/users";
 import { ToastContainer } from "react-toastify";
 import { useAuthStore } from "./app/stores/authStore";
 import { useEffect } from "react";
 import ProtectedRoute from "./app/routes/ProtectedRoute";
+import ModalRoot from "./app/routes/ModalRoot";
 
 function App() {
   const isAuth = useAuthStore((state) => state.isAuth);
-  const logoutStore = useAuthStore((state) => state.logout);
   const initAuth = useAuthStore((state) => state.initAuth);
-  const navigate = useNavigate();
 
   useEffect(() => {
     initAuth();
   }, [initAuth]);
 
-  const handleLogout = async () => {
-    try {
-      await SignOut();
-    } catch (error) {
-      console.error("Error during sign out:", error);
-    } finally {
-      logoutStore();
-      navigate("/home");
-    }
-  };
   return (
     <div>
       <ToastContainer position="top-right" autoClose={2000} />
@@ -43,7 +31,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
 
-        <Route element={<Layout isAuth={isAuth} handleLogout={handleLogout} />}>
+        <Route element={<Layout isAuth={isAuth} />}>
           <Route path="home" element={<Home />} />
           <Route path="news" element={<News />} />
           <Route path="notices" element={<Notices isAuth={isAuth} />} />
@@ -63,12 +51,13 @@ function App() {
             path="/profile"
             element={
               <ProtectedRoute>
-                <Profile handleLogout={handleLogout} />
+                <Profile />
               </ProtectedRoute>
             }
           />
         </Route>
       </Routes>
+      <ModalRoot />
     </div>
   );
 }

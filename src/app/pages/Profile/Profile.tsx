@@ -1,9 +1,6 @@
 import css from "./Profile.module.css";
 import UserCard from "../../components/UserCard/UserCard";
 import MyNotices from "../../components/MyNotices/MyNotices";
-import ModalEditUser from "../../components/ModalEditUser/ModalEditUser";
-import Modal from "../../components/Modal/Modal";
-import ModalApproveAction from "../../components/ModalApproveAction/ModalApproveAction";
 import {
   useQuery,
   keepPreviousData,
@@ -18,12 +15,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useLoaderStore } from "../../stores/useLoaderStore";
 import { useEffect } from "react";
 
-interface ProfileProps {
-  handleLogout: () => void;
-}
-
-function Profile({ handleLogout }: ProfileProps) {
-  const { isOpen, type, openModal, closeModal } = useModalStore();
+function Profile() {
+  const { openModal } = useModalStore();
 
   const openEditUserModal = () => openModal("editUser");
   const openApproveModal = () => openModal("approve");
@@ -74,19 +67,6 @@ function Profile({ handleLogout }: ProfileProps) {
             favoriteNotices={user?.noticesFavorites || []}
             viewedNotices={user?.noticesViewed || []}
           />
-          {isOpen && (
-            <Modal onClose={closeModal}>
-              {type === "editUser" && (
-                <ModalEditUser onClose={closeModal} user={user} />
-              )}
-              {type === "approve" && (
-                <ModalApproveAction
-                  onClose={closeModal}
-                  handleLogout={handleLogout}
-                />
-              )}
-            </Modal>
-          )}
         </div>
       </div>
     </div>

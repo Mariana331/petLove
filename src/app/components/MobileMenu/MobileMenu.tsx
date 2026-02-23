@@ -1,10 +1,11 @@
 import css from "./Mobile.menu.module.css";
 import { Link } from "react-router-dom";
+import LogOutBtn from "../LogOutBtn/LogOutBtn";
 
 interface MobileMenuProps {
   isOpenMobileMenu: boolean;
   onClose: () => void;
-  onLogOut: () => void;
+  openApproveModal: () => void;
   isHome: boolean;
   isAuth: boolean;
 }
@@ -14,7 +15,7 @@ function MobileMenu({
   onClose,
   isHome,
   isAuth,
-  onLogOut,
+  openApproveModal,
 }: MobileMenuProps) {
   if (!isOpenMobileMenu) return null;
   return (
@@ -83,13 +84,7 @@ function MobileMenu({
             </Link>
           </>
         ) : (
-          <button
-            className={isHome ? css.logout : css.logout_orange}
-            type="button"
-            onClick={onLogOut}
-          >
-            LOG OUT
-          </button>
+          <LogOutBtn openApproveModal={openApproveModal} />
         )}
       </div>
     </div>

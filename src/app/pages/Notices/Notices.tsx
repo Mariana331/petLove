@@ -13,9 +13,6 @@ import { useState } from "react";
 import type { NoticeResponse } from "../../services/notices";
 import type { Notice } from "../../types/notices";
 import { getNotices, getNoticeById } from "../../services/notices";
-import ModalAttention from "../../components/ModalAttention/ModalAttention";
-import Modal from "../../components/Modal/Modal";
-import ModalNotice from "../../components/ModalNotice/ModalNotice";
 import { useModalStore } from "../../stores/modalStore";
 import { useLoaderStore } from "../../stores/loaderStore";
 import { useEffect } from "react";
@@ -40,7 +37,7 @@ function Notices({ isAuth }: NoticesProps) {
 
   const queryClient = useQueryClient();
 
-  const { isOpen, type, notice, openModal, closeModal } = useModalStore();
+  const { openModal } = useModalStore();
 
   const { data, isError, isLoading } = useQuery<NoticeResponse>({
     queryKey: [
@@ -170,22 +167,6 @@ function Notices({ isAuth }: NoticesProps) {
               totalPages={data.totalPages}
               onChange={setPage}
             />
-          )}
-          {isOpen && (
-            <Modal onClose={closeModal}>
-              {type === "attention" && <ModalAttention onClose={closeModal} />}
-              {type === "result" && notice && (
-                <ModalNotice
-                  notice={notice}
-                  onClose={closeModal}
-                  toggleFavorite={toggleFavorite}
-                  isFavorite={
-                    user?.noticesFavorites.some((n) => n._id === notice._id) ??
-                    false
-                  }
-                />
-              )}
-            </Modal>
           )}
         </div>
       </div>

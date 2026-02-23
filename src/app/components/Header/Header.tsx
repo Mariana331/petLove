@@ -7,19 +7,15 @@ import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import { GetUserFull } from "../../services/users";
 import LogOutBtn from "../LogOutBtn/LogOutBtn";
 import { useModalStore } from "../../stores/modalStore";
-import Modal from "../Modal/Modal";
-import ModalApproveAction from "../ModalApproveAction/ModalApproveAction";
-
 interface HeaderProps {
   isAuth: boolean;
-  handleLogout: () => void;
 }
 
-function Header({ isAuth, handleLogout }: HeaderProps) {
+function Header({ isAuth }: HeaderProps) {
   const [isOpenMobileMenu, setIsOpenMobileMenu] = useState(false);
   const location = useLocation();
 
-  const { isOpen, type, closeModal, openModal } = useModalStore();
+  const { openModal } = useModalStore();
   const openApproveModal = () => openModal("approve");
 
   const { data: user } = useQuery({
@@ -127,20 +123,10 @@ function Header({ isAuth, handleLogout }: HeaderProps) {
             onClose={() => setIsOpenMobileMenu(false)}
             isHome={isHome}
             isAuth={isAuth}
-            onLogOut={handleLogout}
+            openApproveModal={openApproveModal}
           />
         </div>
       </div>
-      {isOpen && (
-        <Modal onClose={closeModal}>
-          {type === "approve" && (
-            <ModalApproveAction
-              onClose={closeModal}
-              handleLogout={handleLogout}
-            />
-          )}
-        </Modal>
-      )}
     </div>
   );
 }

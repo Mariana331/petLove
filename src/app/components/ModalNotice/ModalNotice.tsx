@@ -5,7 +5,7 @@ interface ModalNoticeProps {
   notice: Notice;
   onClose: () => void;
   toggleFavorite?: (notice: Notice) => void;
-  isFavorite: boolean;
+  isFavorite?: boolean;
 }
 
 function ModalNotice({
