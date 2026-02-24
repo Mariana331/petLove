@@ -25,7 +25,7 @@ function ModalAttention({ onClose }: ModalAttentionProps) {
           register to access these features.
         </p>
         <div className={css.modal_btns}>
-          <button type="button" onClick={onClose}>
+          <button className={css.modal_login} type="button" onClick={onClose}>
             <Link to="/login"> Log In</Link>
           </button>
           <button
