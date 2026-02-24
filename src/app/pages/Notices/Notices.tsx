@@ -15,16 +15,14 @@ import type { Notice } from "../../types/notices";
 import { getNotices, getNoticeById } from "../../services/notices";
 import { useModalStore } from "../../stores/modalStore";
 import { useLoaderStore } from "../../stores/loaderStore";
+import { useAuthStore } from "../../stores/authStore";
 import { useEffect } from "react";
 import { addFavorite, deleteFavorite } from "../../services/notices";
 import type { User } from "../../types/users";
 import { GetUserFull } from "../../services/users";
 
-interface NoticesProps {
-  isAuth: boolean;
-}
-
-function Notices({ isAuth }: NoticesProps) {
+function Notices() {
+  const { isAuth } = useAuthStore();
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState("");
   const [locationId, setLocation] = useState("");

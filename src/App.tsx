@@ -11,19 +11,10 @@ import AddPet from "./app/pages/AddPet/AddPet";
 import Profile from "./app/pages/Profile/Profile";
 import Layout from "./Layout";
 import { ToastContainer } from "react-toastify";
-import { useAuthStore } from "./app/stores/authStore";
-import { useEffect } from "react";
 import ProtectedRoute from "./app/routes/ProtectedRoute";
 import ModalRoot from "./app/routes/ModalRoot";
 
 function App() {
-  const isAuth = useAuthStore((state) => state.isAuth);
-  const initAuth = useAuthStore((state) => state.initAuth);
-
-  useEffect(() => {
-    initAuth();
-  }, [initAuth]);
-
   return (
     <div>
       <ToastContainer position="top-right" autoClose={2000} />
@@ -31,10 +22,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Main />} />
 
-        <Route element={<Layout isAuth={isAuth} />}>
+        <Route element={<Layout />}>
           <Route path="home" element={<Home />} />
           <Route path="news" element={<News />} />
-          <Route path="notices" element={<Notices isAuth={isAuth} />} />
+          <Route path="notices" element={<Notices />} />
           <Route path="friends" element={<Friends />} />
           <Route path="register" element={<Register />} />
           <Route path="login" element={<Login />} />

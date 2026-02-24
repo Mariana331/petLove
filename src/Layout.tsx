@@ -1,12 +1,10 @@
 import Header from "./app/components/Header/Header";
 import { Outlet } from "react-router-dom";
 import Loader from "./app/components/Loader/Loader";
+import { useAuthStore } from "./app/stores/authStore";
 
-interface LayoutProps {
-  isAuth: boolean;
-}
-
-function Layout({ isAuth }: LayoutProps) {
+function Layout() {
+  const { isAuth } = useAuthStore();
   return (
     <div>
       <Header isAuth={isAuth} />

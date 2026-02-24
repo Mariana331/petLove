@@ -15,16 +15,21 @@ import type { User } from "../types/users";
 
 function ModalRoot() {
   const navigate = useNavigate();
-  const { logout } = useAuthStore();
-  const { isOpen, type, notice, closeModal } = useModalStore();
+  const { logout, isAuth } = useAuthStore();
+  const { isOpen, type, notice, closeModal, openModal } = useModalStore();
   const queryClient = useQueryClient();
 
   const { data: user } = useQuery<User>({
     queryKey: ["user"],
     queryFn: GetUserFull,
+    enabled: isAuth,
   });
 
   const toggleFavorite = async (notice: Notice) => {
+    if (!isAuth) {
+      openModal("attention");
+      return;
+    }
     const isFavorite =
       user?.noticesFavorites.some((n) => n._id === notice._id) ?? false;
     if (isFavorite) {
@@ -36,7 +41,6 @@ function ModalRoot() {
   };
 
   if (!isOpen) return null;
-  if (!user) return null;
 
   const handleLogout = async () => {
     try {
@@ -65,7 +69,7 @@ function ModalRoot() {
       {type === "approve" && (
         <ModalApproveAction onClose={closeModal} handleLogout={handleLogout} />
       )}
-      {type === "editUser" && (
+      {type === "editUser" && user && (
         <ModalEditUser onClose={closeModal} user={user} />
       )}
     </Modal>
