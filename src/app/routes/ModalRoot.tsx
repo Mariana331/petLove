@@ -5,22 +5,38 @@ import ModalApproveAction from "../components/ModalApproveAction/ModalApproveAct
 import ModalEditUser from "../components/ModalEditUser/ModalEditUser";
 import { useModalStore } from "../stores/modalStore";
 import { GetUserFull } from "../services/users";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { SignOut } from "../services/users";
 import { useNavigate } from "react-router-dom";
 import { useAuthStore } from "../stores/authStore";
+import { deleteFavorite, addFavorite } from "../services/notices";
+import type { Notice } from "../types/notices";
+import type { User } from "../types/users";
 
 function ModalRoot() {
   const navigate = useNavigate();
   const { logout } = useAuthStore();
+  const { isOpen, type, notice, closeModal } = useModalStore();
+  const queryClient = useQueryClient();
 
-  const { data: user } = useQuery({
+  const { data: user } = useQuery<User>({
     queryKey: ["user"],
     queryFn: GetUserFull,
   });
-  const { isOpen, type, notice, closeModal } = useModalStore();
+
+  const toggleFavorite = async (notice: Notice) => {
+    const isFavorite =
+      user?.noticesFavorites.some((n) => n._id === notice._id) ?? false;
+    if (isFavorite) {
+      await deleteFavorite(notice._id);
+    } else {
+      await addFavorite(notice._id);
+    }
+    queryClient.invalidateQueries({ queryKey: ["user"] });
+  };
 
   if (!isOpen) return null;
+  if (!user) return null;
 
   const handleLogout = async () => {
     try {
@@ -37,7 +53,14 @@ function ModalRoot() {
     <Modal onClose={closeModal}>
       {type === "attention" && <ModalAttention onClose={closeModal} />}
       {type === "result" && notice && (
-        <ModalNotice notice={notice} onClose={closeModal} />
+        <ModalNotice
+          notice={notice}
+          onClose={closeModal}
+          toggleFavorite={toggleFavorite}
+          isFavorite={
+            user?.noticesFavorites.some((n) => n._id === notice._id) ?? false
+          }
+        />
       )}
       {type === "approve" && (
         <ModalApproveAction onClose={closeModal} handleLogout={handleLogout} />

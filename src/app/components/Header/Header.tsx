@@ -77,12 +77,14 @@ function Header({ isAuth }: HeaderProps) {
                   <LogOutBtn openApproveModal={openApproveModal} />
                 </div>
                 {user?.avatar ? (
-                  <img
-                    className={css.header_avatar}
-                    src={user.avatar}
-                    width={20}
-                    height={20}
-                  />
+                  <Link to="/profile">
+                    <img
+                      className={css.header_avatar}
+                      src={user.avatar}
+                      width={20}
+                      height={20}
+                    />
+                  </Link>
                 ) : (
                   <Link to="/profile" className={css.header_user_menu}>
                     <svg
